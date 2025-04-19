@@ -1,0 +1,33 @@
+/* Our Work Section */
+#our-work {
+    background: #fff;
+  }
+  .section-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem; font-weight: 700; color: #3a3f52;
+    border-bottom: 3px solid #0095f7;
+    display: inline-block; margin-bottom: .5rem; padding-bottom: .25rem;
+  }
+  .section-subtitle {
+    font-size: 1rem; color: #53627C; margin-bottom: 1rem;
+  }
+  #ourWorkCarousel .carousel-item img {
+    width: 100%; height: 400px; object-fit: cover;
+  }
+  #ourWorkCarousel .carousel-control-prev-icon,
+  #ourWorkCarousel .carousel-control-next-icon {
+    filter: invert(1);
+    background-color: rgba(0,0,0,0.35);
+    border-radius: 50%;
+    width: 3rem; height: 3rem;
+    background-size: 1.5rem 1.5rem;
+  }
+  #ourWorkCarousel .carousel-indicators li {
+    width: 10px; height: 10px; background: #ccc; border-radius: 50%;
+  }
+  #ourWorkCarousel .carousel-indicators .active {
+    background-color: #3a3f52;
+  }
+  @media (max-width: 767.98px) {
+    #ourWorkCarousel .carousel-item img { height: 250px; }
+  }

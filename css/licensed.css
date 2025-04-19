@@ -1,0 +1,13 @@
+/* Licensed, Insured & Bonded */
+#licensed {
+    background-color: #fff;
+  }
+  .licensed-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px; font-weight: 700; color: #3a3f52; margin-bottom: .75rem;
+  }
+  .licensed-subtext {
+    font-size: 18px; line-height: 1.6; color: #3a3f52;
+    max-width: 700px; margin: 0 auto;
+  }
+  .licensed-subtext strong { font-weight: 700; }

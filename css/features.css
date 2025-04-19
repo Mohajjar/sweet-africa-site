@@ -1,0 +1,38 @@
+/* Features / Quick Highlights */
+#features {
+    background-color: #f6f8f9;
+  }
+  .feature-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    padding: 2rem;
+    text-align: center;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+  }
+  .feature-card i {
+    font-size: 2.5rem; color: #0095f7; margin-bottom: 1rem;
+  }
+  .feature-card p {
+    color: #3a3f52; font-size: 1rem; line-height: 1.6; margin: 0;
+  }
+  
+  /* swipe on mobile */
+  @media (max-width: 767.98px) {
+    #features .row {
+      display: flex; flex-wrap: nowrap;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      padding-bottom: .5rem;
+    }
+    #features .col-md-4 {
+      flex: 0 0 80%; scroll-snap-align: start; margin-right: 1rem;
+    }
+    #features .row > .col-md-4 + .col-md-4 {
+      margin-left: 0;
+    }
+  }

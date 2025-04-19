@@ -1,0 +1,28 @@
+/* Global media tweaks */
+@media (max-width: 575.98px) {
+    h2 { font-size: 34px; }
+    #hero h1 { font-size: 34px; }
+    .title-block h2 { padding: 0 20px; text-align: left; }
+  }
+  
+  @media (max-width: 767.98px) {
+    /* hide Why‑Choose‑Us image */
+    #why-choose-us .d-md-block { display: none !important; }
+  
+    /* testimonials */
+    .desktop-testimonials { display: none; }
+    .mobile-carousel     { display: block; }
+  
+    /* services cards */
+    #services .row {
+      display: flex; flex-wrap: nowrap; overflow-x: auto;
+      scroll-snap-type: x mandatory; margin-left: -1rem; padding-left: 1rem;
+    }
+    #services .row > .col-md-6.col-lg-4 {
+      flex: 0 0 80%; scroll-snap-align: start; margin-right: 1rem;
+    }
+    #services .col-md-6.col-lg-4 + .col-md-6.col-lg-4 {
+      margin-left: 0;
+    }
+  }
+  

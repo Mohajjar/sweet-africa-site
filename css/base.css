@@ -1,0 +1,25 @@
+/* 1. Base Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #3a3f52;
+    margin: 0;
+  }
+  h2 {
+    font-size: 44px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 14px;
+    letter-spacing: .05em;
+    color: #53627C;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Enable smooth in‑page scroll */
+  html {
+    scroll-behavior: smooth;
+  }

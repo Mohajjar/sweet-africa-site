@@ -1,0 +1,67 @@
+/* Discover Our Services */
+#services‑explorer {
+    background: #f6f8f9;
+  }
+  .service-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin: .25rem;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    color: #1f2937;
+    background: #fff;
+    border: 2px solid #d1d5db;
+    border-radius: 9999px;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .service-btn i {
+    font-size: 1.1rem; color: #6b7280;
+  }
+  .service-btn:hover {
+    border-color: #0095f7;
+  }
+  .service-btn.active {
+    background: #0095f7;
+    border-color: #0095f7;
+    color: #fff;
+  }
+  .service-btn.active i {
+    color: #fff;
+  }
+  
+  /* Description panel */
+  .service-description {
+    max-width: 600px;
+    margin: 1.5rem auto;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #0095f7;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    text-align: center;
+    color: #3a3f52;
+  }
+  .service-description__title {
+    font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;
+  }
+  .service-description__text {
+    font-size: 1rem; line-height: 1.6; color: #53627C; max-width: 90%;
+  }
+  #service-description ul {
+    list-style: disc inside;
+    margin: 1rem 0 0;
+    padding-left: 1.2rem;
+    text-align: left;
+  }
+  #service-description ul li {
+    margin-bottom: .5rem; line-height: 1.5;
+  }
+
+  #discover-services .discover-title {
+    font-size: 3rem;      /* was 2.5rem, feel free to tweak */
+    font-weight: 700;
+    color: #3a3f52;
+    margin-bottom: 1rem;
+    line-height: 1.2;     /* keeps it tight if it wraps */
+  }

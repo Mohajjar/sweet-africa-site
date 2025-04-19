@@ -1,0 +1,44 @@
+/* 3. Buttons */
+.btn {
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+  }
+  .btn-regular {
+    background-color: #0095f7;
+    color: #ffffff;
+    padding: 10px 25px;
+    letter-spacing: .1em;
+  }
+  .btn-demo, .btn-buy {
+    color: #ffffff;
+    padding: 15px 48px;
+    width: 100%;
+  }
+  .btn-demo { background-color: #6772e5; }
+  .btn-buy  { background-color: #0095f7; }
+  
+  /* Hero‑specific buttons container */
+  .hero-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  /* New outlined button */
+  .btn-outline-regular {
+    background-color: transparent;
+    border: 2px solid #0095f7;
+    color: #0095f7;
+    padding: 10px 25px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    border-radius: 4px;
+    transition: background-color .3s, color .3s;
+  }
+  .btn-outline-regular:hover,
+  .btn-outline-regular:focus {
+    background-color: #0095f7;
+    color: #fff;
+    text-decoration: none;
+  }

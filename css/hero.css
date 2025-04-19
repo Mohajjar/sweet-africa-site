@@ -1,0 +1,62 @@
+/* 4. Hero Section */
+#hero {
+    position: relative;
+    background-color: #f6f8f9;
+    padding: 100px 0;
+    overflow: hidden;
+    text-align: left;
+  }
+  #hero span {
+    font-weight: 500;
+    color: #0095f7;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+  #hero h1 {
+    font-size: 50px;
+    font-weight: 300;
+    margin: 20px 0;
+  }
+  #hero p {
+    font-size: 24px;
+    color: #8da2b5;
+  }
+  
+  /* Desktop: right-half background image */
+  #hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: url("/images/pexels-falling4utah-2724749.jpg") center/cover no-repeat;
+    z-index: 0;
+  }
+  
+  /* Hero content above image */
+  #hero .hero-content {
+    position: relative;
+    z-index: 1;
+    width: 50%;
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 767.98px) {
+    #hero::before { display: none; }
+    #hero {
+      background: url('/images/pexels-falling4utah-2724749.jpg')
+                  center/cover no-repeat;
+    }
+    #hero .hero-content {
+      width: 90%;
+      margin: 0 auto;
+      background-color: rgba(255,255,255,.85);
+      border-radius: 10px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #hero h1 { font-size: 32px; line-height: 1.2; }
+    #hero p  { font-size: 18px; line-height: 1.4; }
+  }
+
