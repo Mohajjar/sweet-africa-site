@@ -180,3 +180,11 @@ html, body {
 html {
   scroll-padding-top: 70px;
 }
+
+.booking-card {
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+.hidden { 
+  display: none; 
+}
