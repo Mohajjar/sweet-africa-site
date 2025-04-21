@@ -10,7 +10,7 @@ html, body {
     padding-top: 70px;                           /* create a “safe zone” under the navbar */
     padding-bottom: 70px;                        /* optional breathing room at bottom */
     min-height: calc(100vh - 70px);              /* fill the full remaining viewport height */
-    background-color: #f6f8f9;                   /* match your page background */
+    background-color: #f6f8f9;                   /* match the page background */
   
     /* 2) Center the card both vertically & horizontally */
     display: flex;
@@ -18,15 +18,15 @@ html, body {
     justify-content: center;
   }
   
-/* 3) Constrain your container so it doesn’t stretch edge-to-edge */
+/* 3) Constrain the container so it doesn’t stretch edge-to-edge */
 #booking .container {
-  max-width: 600px;     /* or whatever width you prefer */
+  max-width: 600px;
   width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* 4) Keep your booking card sizing as before */
+/* 4) Keep the booking card sizing as before */
 .booking-card {
   max-width: 540px;
   width: 100%;
@@ -69,8 +69,8 @@ html, body {
 /* ensure selects and inputs never get clipped */
 .booking-card .form-control {
   height: auto !important;
-  line-height: 1.5;      /* match your font size so text isn’t cut */
-  padding: 0.75rem 1rem; /* keep your comfy padding */
+  line-height: 1.5;      /* match the font size so text isn’t cut */
+  padding: 0.75rem 1rem; /* keep the comfy padding */
 }
   
   .booking-card .add-address-btn {
