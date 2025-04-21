@@ -1,58 +1,65 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <!-- 1. Meta & CSS -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+  <title>Sweet Africa Global LLC</title>
 
-  <!-- Bootstrap (optional) -->
+  <!-- Bootstrap CSS -->
   <link
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-    integrity="sha384-WskhaSGFgHYWD …"
+    integrity="sha384-WskhaSGFgHYWD..."
     crossorigin="anonymous"
   />
 
-  <!-- Font Awesome & Ionic (icons) -->
+  <!-- Font Awesome & Ionic -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   />
-  <link href="https://unpkg.com/ionicons@4.2.0/dist/css/ionicons.min.css" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/ionicons@4.2.0/dist/css/ionicons.min.css"
+  />
 
   <!-- Google Fonts -->
   <link
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
     rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
   />
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/buttons.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/why-choose-us.css" />
+  <link rel="stylesheet" href="css/testimonials.css" />
+  <link rel="stylesheet" href="css/services.css" />
+  <link rel="stylesheet" href="css/features.css" />
+  <link rel="stylesheet" href="css/our-work.css" />
+  <link rel="stylesheet" href="css/faq-cta.css" />
+  <link rel="stylesheet" href="css/licensed.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/media-queries.css" />
 
-  <!-- Consolidated stylesheet -->
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/chatbot.css">
-<link rel="stylesheet" href="css/buttons.css">
-<link rel="stylesheet" href="css/hero.css">
-<link rel="stylesheet" href="css/why-choose-us.css">
-<link rel="stylesheet" href="css/testimonials.css">
-<link rel="stylesheet" href="css/services.css">
-<link rel="stylesheet" href="css/features.css">
-<link rel="stylesheet" href="css/our-work.css">
-<link rel="stylesheet" href="css/faq-cta.css">
-<link rel="stylesheet" href="css/licensed.css">
-<link rel="stylesheet" href="css/footer.css">
-<link rel="stylesheet" href="css/media-queries.css">
+  <!-- Chatbot Material Symbols -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&amp;family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"
+  />
 
-  <title>Sweet Africa Global LLC</title>
+  <!-- Chatbot Styles -->
+  <link rel="stylesheet" href="/chatbot/css/style.css" />
 </head>
 
 <body>
-  <!-- placeholders for partials -->
+  <!-- Site Partials -->
   <div data-include="navbar.html"></div>
-  <div data-include="chatbot.html"></div>
   <div data-include="hero.html"></div>
   <div data-include="testimonials.html"></div>
   <div data-include="why-choose-us.html"></div>
@@ -63,16 +70,104 @@
   <div data-include="faq.html"></div>
   <div data-include="footer.html"></div>
 
+  <!-- Include Partials Script -->
   <script src="js/includes.js" defer></script>
-  
 
-  <!-- 3. JS dependencies (jQuery/Popper/Bootstrap) -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"
+  <!-- JS Dependencies -->
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    crossorigin="anonymous"
   ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+    crossorigin="anonymous"
+  ></script>
   <script type="module" src="js/main.js" defer></script>
 
+  <!-- Chatbot Toggler -->
+  <button id="chatbot-toggler">
+    <span class="material-symbols-rounded">mode_comment</span>
+    <span class="material-symbols-rounded">close</span>
+  </button>
+
+  <!-- Chatbot Popup -->
+  <div class="chatbot-popup">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="header-info">
+        <img
+          class="chatbot-logo"
+          src="chatbot/img/robotic.avif"
+          alt="Chatbot Logo"
+          width="50"
+          height="50"
+        />
+        <h2 class="logo-text">Sweet Bot</h2>
+      </div>
+      <div class="chat-modes">
+        <div class="slider"></div>
+        <button id="tab-bot" class="mode-tab active">Bot Chat</button>
+        <button id="tab-live-agent" class="mode-tab">Live Agent</button>
+      </div>
+      <button id="close-chatbot" class="material-symbols-rounded">
+        keyboard_arrow_down
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="chat-body">
+      <div class="message bot-message">
+        <img
+          class="bot-avatar"
+          src="chatbot/img/robotic.avif"
+          alt="Avatar"
+          width="50"
+          height="50"
+        />
+        <div class="message-text">
+          Hey there<br />How can I help you today?
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="chat-footer">
+      <form class="chat-form">
+        <textarea
+          placeholder="Message..."
+          class="message-input"
+          required
+        ></textarea>
+        <div class="chat-controls">
+          <button
+            type="button"
+            id="emoji-picker"
+            class="material-symbols-outlined"
+          >
+            sentiment_satisfied
+          </button>
+          <button
+            type="submit"
+            id="send-message"
+            class="material-symbols-rounded"
+          >
+            arrow_upward
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Chatbot Dependencies -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+  <!-- Chatbot Script -->
+  <script src="chatbot/js/script.js" defer></script>
 </body>
 </html>
