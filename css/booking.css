@@ -111,3 +111,72 @@ html, body {
       width: 100% !important;
     }
   }
+
+  /*--------------------------------------------------------------------------------
+  Responsive fixes for mobile booking form
+--------------------------------------------------------------------------------*/
+@media (max-width: 767.98px) {
+  /* Make the #booking section pad a bit more and flex-wrap nicely */
+  #booking {
+    padding: calc(70px + 1rem) 1rem 2rem; /* account for navbar + some breathing room */
+    display: block;
+  }
+
+  /* Shrink & center the card */
+  .booking-card {
+    width: 100% !important;
+    max-width: 400px;      /* a comfortable mobile max width */
+    margin: 0 auto;        /* center horizontally */
+    padding: 1rem 1.25rem; /* a bit less padding on mobile */
+  }
+
+  /* Stack form rows fully */
+  .booking-card .form-row {
+    display: flex !important;
+    flex-direction: column !important;
+    margin-bottom: 1rem;
+  }
+  .booking-card .form-row .form-group {
+    width: 100% !important;
+  }
+
+  /* Make inputs/selects full width */
+  .booking-card .form-control,
+  .booking-card .add-address-btn,
+  .booking-card .btn-next {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Tidy up labels and headings */
+  .booking-card h2 {
+    text-align: center;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .booking-card .step-indicator {
+    text-align: center;
+    display: block;
+    margin-bottom: .5rem;
+  }
+
+  /* Ensure the “Add address” and Next buttons have breathing room */
+  .booking-card .add-address-btn {
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: .5rem 0;
+  }
+  .booking-card .btn-next {
+    padding: .75rem 0;
+    font-size: 1rem;
+  }
+}
+
+#booking {
+  margin-top: 70px !important;
+  padding-top: 1rem;
+}
+
+html {
+  scroll-padding-top: 70px;
+}
