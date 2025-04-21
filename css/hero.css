@@ -60,3 +60,16 @@
     #hero p  { font-size: 18px; line-height: 1.4; }
   }
 
+  :root {
+    --nav-height: 70px; /* match navbar’s real height */
+  }
+  
+  /* push the entire page content down */
+  body {
+    padding-top: var(--nav-height);
+  }
+  
+  html {
+    scroll-padding-top: var(--nav-height);
+  }
+
