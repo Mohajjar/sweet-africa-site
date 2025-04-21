@@ -1,24 +1,13 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <!-- 1. Required meta tags -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
 
-  <!-- 2. Tailwind (for utility classes) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- 3. Font Awesome (icons) -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    crossorigin="anonymous"
-  />
-
-  <!-- 4. Your global site CSS (navbar, base, etc.) -->
+  <linkrel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"/>
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- 5. Booking‑page CSS overrides -->
   <link rel="stylesheet" href="css/booking.css" />
 
   <title>Book a Cleaning — Sweet Africa Global LLC</title>
@@ -36,7 +25,7 @@
       <div class="booking-card mx-auto">
         <h2 class="mb-4">Book Your Cleaning</h2>
   
-        <!-- ↓ KOALA EMBED REPLACES OLD FORM ↓ -->
+        <!--  KOALA EMBED  -->
         <div class="booking-widget">
           <iframe
             src="https://sweetafricaglobal.bookingkoala.com/booknow?embed=true"
@@ -49,39 +38,11 @@
             defer
           ></script>
         </div>
-        <!-- ↑ end Koala embed ↑ -->
-  
       </div>
     </div>
   </section>
 
-  <!-- 1) Include‑loader: pulls in navbar.html -->
   <script src="js/includes.js" defer></script>
-  <!-- 2) Your main app code (initNav, etc.) -->
   <script type="module" src="js/main.js" defer></script>
-
-  <!-- 3) Inline fallback: address toggle + phone formatting -->
-  <script>
-    document.addEventListener("includesLoaded", () => {
-      // Address toggle
-      document
-        .querySelector(".add-address-btn")
-        .addEventListener("click", () => {
-          document.getElementById("address-form").classList.toggle("hidden");
-        });
-
-      // Phone formatting (US)
-      const phone = document.getElementById("phoneNumber");
-      phone.addEventListener("input", e => {
-        let d = e.target.value.replace(/\D/g, "").slice(0,10);
-        const [a,b,c] = [d.slice(0,3), d.slice(3,6), d.slice(6)];
-        let out = "+1";
-        if(a) out += " (" + a + (a.length===3?")":"");
-        if(b) out += " " + b;
-        if(c) out += "-" + c;
-        e.target.value = out;
-      });
-    });
-  </script>
 </body>
 </html>
