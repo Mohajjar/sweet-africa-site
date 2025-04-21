@@ -30,117 +30,27 @@
   <div data-include="navbar.html"></div>
 
   <!-- booking section -->
-  <section id="booking" class="pt-24 pb-12">
-    <div class="max-w-2xl mx-auto px-4">
-      <div class="booking-card bg-white rounded-lg shadow-lg p-8">
-        <div class="text-gray-500 text-sm mb-2">Step 1 of 4</div>
-        <h2 class="text-2xl font-semibold mb-6">When and where do you need cleaning?</h2>
 
-        <form>
-          <!-- Full name -->
-          <div class="mb-4">
-            <label for="fullName" class="block text-sm font-medium mb-1">Full name</label>
-            <input
-              type="text"
-              id="fullName"
-              class="w-full border rounded p-3 focus:outline-none focus:ring"
-              placeholder="Type your full name"
-              required
-            />
-          </div>
-
-          <!-- Phone & Referral -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label for="phoneNumber" class="block text-sm font-medium mb-1">Phone number</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                class="w-full border rounded p-3 focus:outline-none focus:ring"
-                placeholder="+1 (___) ___-____"
-                required
-              />
-            </div>
-            <div>
-              <label for="referral" class="block text-sm font-medium mb-1">Where did you hear about us?</label>
-              <select
-                id="referral"
-                class="w-full border rounded p-3 focus:outline-none focus:ring"
-                required
-              >
-                <option value="" disabled selected>Select</option>
-                <option>Google</option>
-                <option>Facebook</option>
-                <option>Friend</option>
-                <option>Other</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Day & Time -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label for="dayPicker" class="block text-sm font-medium mb-1">Day</label>
-              <input
-                type="date"
-                id="dayPicker"
-                class="w-full border rounded p-3 focus:outline-none focus:ring"
-                required
-              />
-            </div>
-            <div>
-              <label for="timePicker" class="block text-sm font-medium mb-1">Time</label>
-              <input
-                type="time"
-                id="timePicker"
-                class="w-full border rounded p-3 focus:outline-none focus:ring"
-                required
-              />
-            </div>
-          </div>
-
-          <!-- Address toggle -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium mb-1">Address</label>
-            <button
-              type="button"
-              class="add-address-btn inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none"
-            >
-              <i class="fas fa-plus-circle mr-2"></i>
-              Add a new address
-            </button>
-          </div>
-
-          <!-- Hidden address fields -->
-          <div id="address-form" class="hidden space-y-4 mb-6">
-            <div>
-              <label for="addressLine" class="block text-sm font-medium mb-1">Address</label>
-              <input
-                type="text"
-                id="addressLine"
-                class="w-full border rounded p-3 focus:outline-none focus:ring"
-                placeholder="Enter your address"
-              />
-            </div>
-            <div>
-              <label for="unit" class="block text-sm font-medium mb-1">Unit / Apt #</label>
-              <input
-                type="text"
-                id="unit"
-                class="w-full border rounded p-3 focus:outline-none focus:ring"
-                placeholder="Unit, Apt, Suite (optional)"
-              />
-            </div>
-          </div>
-
-          <!-- Submit -->
-          <button
-            type="submit"
-            class="w-full bg-green-600 text-white font-semibold py-3 rounded hover:bg-green-700 focus:outline-none"
-          >
-            Next step
-          </button>
-        </form>
+  <section id="booking" class="py-5 bg-light">
+    <div class="container">
+      <div class="booking-card mx-auto">
+        <h2 class="mb-4">Book Your Cleaning</h2>
+  
+        <!-- ↓ KOALA EMBED REPLACES OLD FORM ↓ -->
+        <div class="booking-widget">
+          <iframe
+            src="https://sweetafricaglobal.bookingkoala.com/booknow?embed=true"
+            style="border:none; height:1000px;"
+            width="100%"
+            scrolling="no"
+          ></iframe>
+          <script
+            src="https://sweetafricaglobal.bookingkoala.com/resources/embed.js"
+            defer
+          ></script>
+        </div>
+        <!-- ↑ end Koala embed ↑ -->
+  
       </div>
     </div>
   </section>
