@@ -17,6 +17,16 @@ const LOCAL_STORAGE_CHAT_MESSAGES_KEY = "chatMessages";
 // Expire messages after 2 hours
 const MESSAGE_EXPIRATION_MS = 2 * 60 * 60 * 1000;
 
+// ===== URL → clickable <a> helper =====
+function linkify(text) {
+  return text.replace(
+    /(https?:\/\/[^\s]+)/g,
+    (url) =>
+      `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+  );
+}
+
+// ===== Storage CRUD =====
 let chatId = localStorage.getItem(LOCAL_STORAGE_CHAT_ID_KEY);
 if (!chatId) {
   chatId = generateRandomId(12);
@@ -45,15 +55,16 @@ function addMessageToLocalStorage(messageObj) {
 
 function pruneOldMessages() {
   const now = Date.now();
-  // Remove any messages older than expiration
   const messages = getStoredMessages().filter(
     (msg) => now - msg.timestamp < MESSAGE_EXPIRATION_MS
   );
   saveStoredMessages(messages);
 }
 
+// ===== Render Chat from LocalStorage =====
 function loadLocalChatMessages() {
   pruneOldMessages();
+
   const messages = getStoredMessages()
     .filter((msg) => msg.mode === activeChatMode)
     .sort((a, b) => a.timestamp - b.timestamp);
@@ -65,8 +76,10 @@ function loadLocalChatMessages() {
       hour: "2-digit",
       minute: "2-digit",
     });
-    let html = `
-      <div class="message-text">${msg.text}</div>
+
+    // Bubble + timestamp siblings
+    const html = `
+      <div class="message-text">${linkify(msg.text)}</div>
       <span class="timestamp">${timeString}</span>
     `;
 
@@ -83,7 +96,7 @@ function loadLocalChatMessages() {
   chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
 }
 
-// ===== Firebase Setup =====nconst firebaseConfig = {
+// ===== Firebase Setup =====
 const firebaseConfig = {
   apiKey: "AIzaSyBxzRk31KD-N6vORRJBWOleEUUVguUIhr0",
   authDomain: "waiting-list-by-mo.firebaseapp.com",
@@ -94,17 +107,12 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+
+// Kick things off
 loadLocalChatMessages();
 
-// ===== API Endpoints =====
-const BOT_API_URL =
-  "https://chat-bot-ba75c8ca6902.herokuapp.com/chatWithGemini";
-const LIVE_AGENT_API_URL =
-  "https://chat-bot-ba75c8ca6902.herokuapp.com/sendMessageToLiveAgent";
-
+// ===== Firestore → LocalSync =====
 const messagesQuery = db.collection(chatId).orderBy("createdAt", "asc");
-
-// ===== Firestore Listener =====
 messagesQuery.onSnapshot(
   (snapshot) => {
     let added = false;
@@ -115,7 +123,6 @@ messagesQuery.onSnapshot(
           data.createdAt && typeof data.createdAt.toDate === "function"
             ? data.createdAt.toDate().getTime()
             : Date.now();
-
         const mode = data.mode || "bot";
         const type = mode === "liveAgent" ? "agent" : "bot";
         const id = change.doc.id;
@@ -134,7 +141,7 @@ messagesQuery.onSnapshot(
     });
     if (added) loadLocalChatMessages();
   },
-  (error) => console.error("Firestore error:", error)
+  (err) => console.error("Firestore error:", err)
 );
 
 // ===== Helpers =====
@@ -145,7 +152,16 @@ function createMessageElement(innerHTML, ...classes) {
   return el;
 }
 
-// ===== User Message Handling =====
+function generateRandomId(length = 12) {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let id = "";
+  for (let i = 0; i < length; i++) {
+    id += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return id;
+}
+
+// ===== Outgoing Message Handler =====
 const initialInputHeight = messageInput.scrollHeight;
 
 async function handleOutgoingMessage(e) {
@@ -166,11 +182,12 @@ async function handleOutgoingMessage(e) {
   loadLocalChatMessages();
 
   if (activeChatMode === "bot") {
-    // show thinking bubble only for bot
     const thinkingHTML = `
-      <img class=\"bot-avatar\" src=\"chatbot/img/robotic.avif\" alt=\"Avatar\" width=\"50\" height=\"50\" />
-      <div class=\"message-text\">
-        <div class=\"thinking-indicator\"><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div></div>
+      <img class="bot-avatar" src="chatbot/img/robotic.avif" alt="Avatar" width="50" height="50" />
+      <div class="message-text">
+        <div class="thinking-indicator">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
       </div>`;
     const bubble = createMessageElement(
       thinkingHTML,
@@ -181,16 +198,17 @@ async function handleOutgoingMessage(e) {
     chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
     await generateBotResponse(bubble, text);
   } else {
-    // live-agent: send immediately, no thinking
+    // live‑agent branch
     await fetch(LIVE_AGENT_API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text, chatId }),
-    }).catch((e) => console.error(e));
+    }).catch(console.error);
     loadLocalChatMessages();
   }
 }
 
+// ===== Event Listeners =====
 messageInput.addEventListener("input", () => {
   messageInput.style.height = `${initialInputHeight}px`;
   messageInput.style.height = `${messageInput.scrollHeight}px`;
@@ -202,7 +220,6 @@ messageInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey && messageInput.value.trim())
     handleOutgoingMessage(e);
 });
-
 sendMessageBtn.addEventListener("click", handleOutgoingMessage);
 chatbotToggler.addEventListener("click", () =>
   document.body.classList.toggle("show-chatbot")
@@ -230,6 +247,11 @@ tabLiveAgent.addEventListener("click", () => {
 });
 
 // ===== Emoji Picker =====
+const BOT_API_URL =
+  "https://chat-bot-ba75c8ca6902.herokuapp.com/chatWithGemini";
+const LIVE_AGENT_API_URL =
+  "https://chat-bot-ba75c8ca6902.herokuapp.com/sendMessageToLiveAgent";
+
 const picker = new EmojiMart.Picker({
   theme: "light",
   skinTonePosition: "none",
@@ -247,16 +269,6 @@ const picker = new EmojiMart.Picker({
 });
 document.querySelector(".chat-form").appendChild(picker);
 
-// ===== ID Generator =====
-function generateRandomId(length = 12) {
-  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let id = "";
-  for (let i = 0; i < length; i++) {
-    id += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return id;
-}
-
 // ===== Bot Response =====
 async function generateBotResponse(el, userText) {
   const contentEl = el.querySelector(".message-text");
@@ -268,7 +280,8 @@ async function generateBotResponse(el, userText) {
     });
     const json = await res.json();
     if (!res.ok) throw new Error(json.error?.message || "Error");
-    contentEl.innerText = json.reply;
+    // insert clickable HTML
+    contentEl.innerHTML = linkify(json.reply);
     addMessageToLocalStorage({
       id: generateRandomId(),
       type: "bot",

@@ -527,3 +527,15 @@ body.show-chatbot {
   height: 100%;
   overflow: hidden;
 }
+
+.chat-body .message-text {
+  /* allow long words / URLs to break onto the next line */
+  white-space: pre-wrap;       /* preserves your line‑breaks and wraps text */
+  overflow-wrap: break-word;   /* breaks long words/URLs */
+  word-break: break-word;      /* extra safety for really long strings */
+}
+
+.chat-body .message-text a {
+  color: #00abb1;
+  text-decoration: underline;
+}
