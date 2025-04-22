@@ -66,9 +66,9 @@ function loadLocalChatMessages() {
       minute: "2-digit",
     });
     let html = `
-      <div class=\"message-text\">${msg.text}
-        <span class=\"timestamp\">${timeString}</span>
-      </div>`;
+      <div class="message-text">${msg.text}</div>
+      <span class="timestamp">${timeString}</span>
+    `;
 
     const typeClass =
       msg.type === "bot"
