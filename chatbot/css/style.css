@@ -486,3 +486,11 @@ body.show-emoji-picker em-emoji-picker {
 .chatbot-popup {
   z-index: 1999;    /* just beneath the toggler */
 }
+
+
+/* Hide the toggler only on mobile once the chat is open */
+@media (max-width: 520px) {
+  body.show-chatbot #chatbot-toggler {
+    display: none;
+  }
+}
