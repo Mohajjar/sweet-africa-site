@@ -68,16 +68,23 @@ body.show-chatbot .chatbot-popup {
 
 .chat-header {
   display: flex;
-  align-items: center;
-  padding: 15px 22px;
-  background: #00abb1;
+  align-items: center;      /* vertical center all children */
   justify-content: space-between;
+  padding: 12px 22px;       /* equal top/bottom so things truly center vertically */
+  background-color: #00abb1;
 }
 
 .chat-header .header-info {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 8px;                /* tighten up the space if you like */
+  flex-wrap: nowrap;       /* never wrap to a second line */
+}
+
+.chat-header .header-info .logo-text {
+  margin: 0;               /* remove the default h2 margins */
+  white-space: nowrap;     /* force “Client Services” on one line */
+  line-height: 1;          /* keeps the text vertically centered */
 }
 
 .header-info .chatbot-logo {
@@ -98,12 +105,13 @@ body.show-chatbot .chatbot-popup {
 }
 
 .chat-header #close-chatbot {
+  align-self: center;
   border: none;
   color: #fff;
   height: 40px;
   width: 40px;
   font-size: 1.9rem;
-  margin-right: -10px;
+  margin-left: auto;
   padding-top: 2px;
   cursor: pointer;
   border-radius: 50%;
@@ -395,7 +403,7 @@ body.show-emoji-picker em-emoji-picker {
   border: 1px solid #00abb1;
   border-radius: 50px;
   overflow: hidden;
-  margin-right: -36px;
+  margin-left: 20px;
 }
 
 .mode-tab {
