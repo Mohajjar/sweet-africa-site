@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs22",
+    "serviceConfig": {
+      "environmentVariables": {
+        "GEMINI_API_KEY": "AIzaSyAU0GS9sUuO1i8E-pSsgLMEtW9SWnTP2ZY"
+      }
+    }
+  }
+}
