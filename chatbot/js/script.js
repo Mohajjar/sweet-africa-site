@@ -14,7 +14,8 @@ const slider = document.querySelector(".chat-modes .slider");
 // ===== Local Storage Setup =====
 const LOCAL_STORAGE_CHAT_ID_KEY = "chatId";
 const LOCAL_STORAGE_CHAT_MESSAGES_KEY = "chatMessages";
-const MESSAGE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 1 day
+// Expire messages after 2 hours
+const MESSAGE_EXPIRATION_MS = 2 * 60 * 60 * 1000;
 
 let chatId = localStorage.getItem(LOCAL_STORAGE_CHAT_ID_KEY);
 if (!chatId) {
@@ -44,6 +45,7 @@ function addMessageToLocalStorage(messageObj) {
 
 function pruneOldMessages() {
   const now = Date.now();
+  // Remove any messages older than expiration
   const messages = getStoredMessages().filter(
     (msg) => now - msg.timestamp < MESSAGE_EXPIRATION_MS
   );
@@ -63,32 +65,25 @@ function loadLocalChatMessages() {
       hour: "2-digit",
       minute: "2-digit",
     });
-    let html = "";
-    if (msg.type === "bot") {
-      // unchanged
-    } else if (msg.type === "agent") {
-      // agent replies from Discord
-      const html = `
-        <div class="message-text">
-          ${msg.text}
-          <span class="timestamp">${timeString}</span>
-        </div>`;
-      chatBody.appendChild(createMessageElement(html, "agent-message"));
-    } else {
-      html = `
-        <div class=\"message-text\">
-          ${msg.text}
-          <span class=\"timestamp\">${timeString}</span>
-        </div>
-      `;
-      chatBody.appendChild(createMessageElement(html, "user-message"));
-    }
+    let html = `
+      <div class=\"message-text\">${msg.text}
+        <span class=\"timestamp\">${timeString}</span>
+      </div>`;
+
+    const typeClass =
+      msg.type === "bot"
+        ? "bot-message"
+        : msg.type === "agent"
+        ? "agent-message"
+        : "user-message";
+
+    chatBody.appendChild(createMessageElement(html, typeClass));
   });
 
   chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
 }
 
-// ===== Firebase Setup =====
+// ===== Firebase Setup =====nconst firebaseConfig = {
 const firebaseConfig = {
   apiKey: "AIzaSyBxzRk31KD-N6vORRJBWOleEUUVguUIhr0",
   authDomain: "waiting-list-by-mo.firebaseapp.com",
@@ -99,11 +94,13 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+loadLocalChatMessages();
 
-// Point to your actual Heroku routes:
-const BOT_API_URL = "https://chatwithgemini-rkjnx5arcq-uc.a.run.app";
+// ===== API Endpoints =====
+const BOT_API_URL =
+  "https://chat-bot-ba75c8ca6902.herokuapp.com/chatWithGemini";
 const LIVE_AGENT_API_URL =
-  "https://us-central1-waiting-list-by-mo.cloudfunctions.net/sendMessageToLiveAgent";
+  "https://chat-bot-ba75c8ca6902.herokuapp.com/sendMessageToLiveAgent";
 
 const messagesQuery = db.collection(chatId).orderBy("createdAt", "asc");
 
@@ -119,13 +116,10 @@ messagesQuery.onSnapshot(
             ? data.createdAt.toDate().getTime()
             : Date.now();
 
-        // pick up the mode flag (defaults to "bot")
         const mode = data.mode || "bot";
-        // show liveAgent messages under Live Chat tab
         const type = mode === "liveAgent" ? "agent" : "bot";
         const id = change.doc.id;
 
-        // only add once
         if (!getStoredMessages().some((m) => m.id === id)) {
           addMessageToLocalStorage({
             id,
@@ -143,7 +137,7 @@ messagesQuery.onSnapshot(
   (error) => console.error("Firestore error:", error)
 );
 
-// ===== Helper =====
+// ===== Helpers =====
 function createMessageElement(innerHTML, ...classes) {
   const el = document.createElement("div");
   el.classList.add("message", ...classes);
@@ -151,63 +145,13 @@ function createMessageElement(innerHTML, ...classes) {
   return el;
 }
 
-// ===== Bot / Live Agent Response =====
-async function generateBotResponse(el) {
-  const contentEl = el.querySelector(".message-text");
-  try {
-    const res = await fetch(BOT_API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userData.message }),
-    });
-    const json = await res.json();
-    if (!res.ok) throw new Error(json.error?.message || "Error");
-    contentEl.innerText = json.reply;
-    addMessageToLocalStorage({
-      id: generateRandomId(),
-      type: "bot",
-      text: json.reply,
-      timestamp: Date.now(),
-      mode: "bot",
-    });
-  } catch (e) {
-    console.error(e);
-    contentEl.innerText = e.message;
-    contentEl.style.color = "#ff0000";
-  } finally {
-    el.classList.remove("thinking");
-    loadLocalChatMessages();
-  }
-}
-
-async function generateLiveAgentResponse(el) {
-  const contentEl = el.querySelector(".message-text");
-  try {
-    const res = await fetch(LIVE_AGENT_API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userData.message, chatId }),
-    });
-    if (!res.ok) throw new Error("Live agent error");
-  } catch (e) {
-    console.error(e);
-    contentEl.innerText = e.message;
-    contentEl.style.color = "#ff0000";
-  } finally {
-    el.classList.remove("thinking");
-    loadLocalChatMessages();
-  }
-}
-
 // ===== User Message Handling =====
-const userData = { message: null };
 const initialInputHeight = messageInput.scrollHeight;
 
 async function handleOutgoingMessage(e) {
   e.preventDefault();
   const text = messageInput.value.trim();
   if (!text) return;
-  userData.message = text;
   messageInput.value = "";
   messageInput.dispatchEvent(new Event("input"));
 
@@ -221,18 +165,30 @@ async function handleOutgoingMessage(e) {
   });
   loadLocalChatMessages();
 
-  const thinkingHTML = `
-    <img class=\"bot-avatar\" src=\"chatbot/img/robotic.avif\" alt=\"Avatar\" width=\"50\" height=\"50\" />
-    <div class=\"message-text\">
-      <div class=\"thinking-indicator\"><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div></div>
-    </div>
-  `;
-  const bubble = createMessageElement(thinkingHTML, "bot-message", "thinking");
-  chatBody.appendChild(bubble);
-  chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
-
-  if (activeChatMode === "liveAgent") await generateLiveAgentResponse(bubble);
-  else await generateBotResponse(bubble);
+  if (activeChatMode === "bot") {
+    // show thinking bubble only for bot
+    const thinkingHTML = `
+      <img class=\"bot-avatar\" src=\"chatbot/img/robotic.avif\" alt=\"Avatar\" width=\"50\" height=\"50\" />
+      <div class=\"message-text\">
+        <div class=\"thinking-indicator\"><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div></div>
+      </div>`;
+    const bubble = createMessageElement(
+      thinkingHTML,
+      "bot-message",
+      "thinking"
+    );
+    chatBody.appendChild(bubble);
+    chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+    await generateBotResponse(bubble, text);
+  } else {
+    // live-agent: send immediately, no thinking
+    await fetch(LIVE_AGENT_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text, chatId }),
+    }).catch((e) => console.error(e));
+    loadLocalChatMessages();
+  }
 }
 
 messageInput.addEventListener("input", () => {
@@ -299,4 +255,33 @@ function generateRandomId(length = 12) {
     id += chars[Math.floor(Math.random() * chars.length)];
   }
   return id;
+}
+
+// ===== Bot Response =====
+async function generateBotResponse(el, userText) {
+  const contentEl = el.querySelector(".message-text");
+  try {
+    const res = await fetch(BOT_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userText }),
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error?.message || "Error");
+    contentEl.innerText = json.reply;
+    addMessageToLocalStorage({
+      id: generateRandomId(),
+      type: "bot",
+      text: json.reply,
+      timestamp: Date.now(),
+      mode: "bot",
+    });
+  } catch (e) {
+    console.error(e);
+    contentEl.innerText = e.message;
+    contentEl.style.color = "#ff0000";
+  } finally {
+    el.classList.remove("thinking");
+    loadLocalChatMessages();
+  }
 }
