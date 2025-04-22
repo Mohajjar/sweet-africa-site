@@ -213,7 +213,7 @@ closeChatbot.addEventListener("click", () =>
 
 tabBot.addEventListener("click", () => {
   activeChatMode = "bot";
-  document.querySelector(".logo-text").innerText = "Sweet Bot";
+  document.querySelector(".logo-text").innerText = "Client Services";
   tabBot.classList.add("active");
   tabLiveAgent.classList.remove("active");
   slider.style.transform = "translateX(0)";
