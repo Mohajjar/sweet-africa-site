@@ -101,10 +101,9 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // Point to your actual Heroku routes:
-const BOT_API_URL =
-  "https://chat-bot-ba75c8ca6902.herokuapp.com/chatWithGemini";
+const BOT_API_URL = "https://chatwithgemini-rkjnx5arcq-uc.a.run.app";
 const LIVE_AGENT_API_URL =
-  "https://chat-bot-ba75c8ca6902.herokuapp.com/sendMessageToLiveAgent";
+  "https://us-central1-waiting-list-by-mo.cloudfunctions.net/sendMessageToLiveAgent";
 
 const messagesQuery = db.collection(chatId).orderBy("createdAt", "asc");
 
