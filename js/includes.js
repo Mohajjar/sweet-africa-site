@@ -1,27 +1,18 @@
 // js/includes.js
-async function includePartials() {
-  const placeholders = Array.from(document.querySelectorAll("[data-include]"));
-  await Promise.all(
-    placeholders.map(async (el) => {
-      // 1. read the fragment name
-      const url = el.getAttribute("data-include");
-      // 2. build a root-relative path
-      const path = url.startsWith("/") ? url : `/${url}`;
-      try {
-        // 3. fetch that path
-        const res = await fetch(path);
-        if (!res.ok) throw new Error(res.statusText);
-        const html = await res.text();
-        // replace the placeholder
-        const frag = document.createRange().createContextualFragment(html);
-        el.replaceWith(frag);
-      } catch (err) {
-        console.error(`Failed to include ${path}:`, err);
-      }
-    })
-  );
-  // now that everything’s in, fire the event
+document.addEventListener("DOMContentLoaded", async () => {
+  const placeholders = document.querySelectorAll("[data-include]");
+  for (const el of placeholders) {
+    const file = el.getAttribute("data-include");
+    try {
+      const res = await fetch(file);
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      const html = await res.text();
+      el.innerHTML = html;
+      el.removeAttribute("data-include");
+    } catch (err) {
+      console.error(`🧩 include failed for ${file}:`, err);
+    }
+  }
+  // if you need to hook into “all includes are in place”:
   document.dispatchEvent(new Event("includesLoaded"));
-}
-
-document.addEventListener("DOMContentLoaded", includePartials);
+});

@@ -2,34 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <linkrel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"/>
+  <!-- Fixed the missing space here -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"/>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/booking.css" />
 
   <title>Book a Cleaning — Sweet Africa Global LLC</title>
 </head>
-  
-        <!--  KOALA EMBED  -->
-        <div class="booking-widget">
-          <iframe
-            src="https://sweetafricaglobal.bookingkoala.com/booknow?embed=true"
-            style="border:none; height:1000px;"
-            width="100%"
-            scrolling="no"
-          ></iframe>
-          <script
-            src="https://sweetafricaglobal.bookingkoala.com/resources/embed.js"
-            defer
-          ></script>
-        </div>
-      </div>
-    </div>
-  </section>
+<body>
+  <!-- Navbar include -->
+  <div data-include="navbar.html"></div>
+  <!--  KOALA EMBED  -->
+  <div class="booking-widget">
+    <iframe
+      src="https://sweetafricaglobal.bookingkoala.com/booknow?embed=true"
+      style="border:none; height:1000px;"
+      width="100%"
+      scrolling="no"
+    ></iframe>
+    <script
+      src="https://sweetafricaglobal.bookingkoala.com/resources/embed.js"
+      defer
+    ></script>
+  </div>
 
+  <!-- Include the HTML‑inliner script -->
   <script src="js/includes.js" defer></script>
   <script type="module" src="js/main.js" defer></script>
 </body>
