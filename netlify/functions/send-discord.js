@@ -1,6 +1,3 @@
-// netlify/functions/send-discord.js
-import fetch from "node-fetch";
-
 // replace this with your actual webhook URL
 const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK_URL;
 
