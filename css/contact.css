@@ -91,3 +91,29 @@ html, body {
       padding: 2rem 1rem;
     }
   }
+
+  /* center the card in the page */
+#contact .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  /* stack fields vertically */
+  #contact .contact-card .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+  }
+  
+  /* full-width inputs */
+  #contact .contact-card .form-control,
+  #contact .contact-card textarea.form-control {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* extra bottom space before the submit button */
+  #contact .contact-card .form-group:last-of-type {
+    margin-bottom: 2rem;
+  }

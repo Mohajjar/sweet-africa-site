@@ -3,102 +3,67 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+
+  <!-- Tailwind (dev only—remove in prod) -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     crossorigin="anonymous"
   />
 
-  <link rel="stylesheet" href="css/contact.css" />
+  <!-- Your styles -->
   <link rel="stylesheet" href="css/navbar.css" />
-  
+  <link rel="stylesheet" href="css/contact.css" />
+
   <title>Contact Us — Sweet Africa Global LLC</title>
 </head>
-<body class="booking-page">
+<body>
 
-<!-- partials/contact.html -->
-<section id="contact" class="py-16 bg-gradient-to-b from-blue-50 to-white">
-    <div class="container mx-auto px-4 max-w-2xl">
-      <div class="bg-white rounded-2xl shadow-lg p-8">
-        <h2 class="text-3xl font-bold text-center mb-6">Contact Us</h2>
-        <form id="contact-form" class="space-y-6">
-          <!-- Name -->
-          <div>
-            <label for="contact-name" class="block text-sm font-medium text-gray-700">
-              Name <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="contact-name"
-              name="name"
-              required
-              class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Your full name"
-            />
+  <!-- 1) Navbar -->
+  <div data-include="navbar.html"></div>
+
+  <!-- 2) Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <h2>Contact Us</h2>
+        <form name="contact" method="POST" action="/.netlify/functions/send-discord" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="hidden">
+            <label>Don’t fill this out if you’re human: <input name="bot-field"></label>
+          </p>
+  
+          <div class="form-group">
+            <label for="contact-name">Name *</label>
+            <input id="contact-name" name="name" class="form-control" placeholder="Your full name" required>
           </div>
-          <!-- Email -->
-          <div>
-            <label for="contact-email" class="block text-sm font-medium text-gray-700">
-              E-mail <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              id="contact-email"
-              name="email"
-              required
-              class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="you@example.com"
-            />
+  
+          <div class="form-group">
+            <label for="contact-email">E-mail *</label>
+            <input id="contact-email" name="email" type="email" class="form-control" placeholder="you@example.com" required>
           </div>
-          <!-- Phone -->
-          <div>
-            <label for="contact-phone" class="block text-sm font-medium text-gray-700">
-              Contact Number <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="tel"
-              id="contact-phone"
-              name="phone"
-              required
-              class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="+1 (123) 456-7890"
-            />
+  
+          <div class="form-group">
+            <label for="contact-phone">Contact Number *</label>
+            <input id="contact-phone" name="phone" class="form-control" placeholder="+1 (123) 456-7890" required>
           </div>
-          <!-- Message -->
-          <div>
-            <label for="contact-message" class="block text-sm font-medium text-gray-700">
-              Message <span class="text-red-500">*</span>
-            </label>
-            <textarea
-              id="contact-message"
-              name="message"
-              rows="4"
-              required
-              class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="How can we help?"
-            ></textarea>
+  
+          <div class="form-group">
+            <label for="contact-message">Message *</label>
+            <textarea id="contact-message" name="message" class="form-control" placeholder="How can we help?" required></textarea>
           </div>
-          <!-- Submit -->
-          <div class="text-center">
-            <button
-              type="submit"
-              class="mt-4 inline-flex justify-center py-3 px-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow"
-            >
-              Submit
-            </button>
-          </div>
+  
+          <button type="submit" class="btn btn-submit">Submit</button>
         </form>
       </div>
     </div>
   </section>
 
-    <!-- navbar placeholder -->
-    <div data-include="navbar.html"></div>
-
-  <!-- load includes.js to pull in navbar.html -->
+  <!-- 3) includes.js (pulls in navbar.html) -->
   <script src="js/includes.js" defer></script>
-  <!-- your other site scripts -->
+  <!-- 4) your main app code (initNav, etc.) -->
   <script type="module" src="js/main.js" defer></script>
 </body>
 </html>
