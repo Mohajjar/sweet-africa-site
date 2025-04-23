@@ -1,0 +1,93 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  /* assume your navbar’s height is 70px */
+  body {
+    padding-top: 70px;           /* push everything below the navbar */
+  }
+
+
+/* Contact Section Enhancements */
+#contact {
+    /* fill the remaining viewport height */
+    min-height: calc(100vh - 70px);
+    /* center its contents */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    /* background image + fallback color */
+    background:
+      url("../images/contact-img.jpg") center center/cover no-repeat,
+      #f0f4f8;
+  }
+  
+  /* Centered card */
+  #contact .contact-card {
+    position: relative;  /* sits above the bg */
+    z-index: 1;
+    max-width: 500px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    padding: 40px 30px;
+  }
+  
+  /* Headline */
+  #contact .contact-card h2 {
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  /* Inputs */
+  #contact .contact-card .form-control {
+    background: #fcfcfc;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  #contact .contact-card .form-control:focus {
+    border-color: #0095f7;
+    box-shadow: 0 0 0 3px rgba(0,149,247,0.25);
+    outline: none;
+  }
+  
+  /* Labels */
+  #contact .contact-card label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Submit Button */
+  #contact .contact-card .btn-submit {
+    display: block;
+    width: 100%;
+    background-color: #0095f7;
+    color: #fff;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    transition: transform .15s, box-shadow .15s;
+  }
+  #contact .contact-card .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,149,247,0.3);
+  }
+  
+  /* Responsive */
+  @media (max-width:576px) {
+    #contact {
+      padding: 40px 10px;
+    }
+    #contact .contact-card {
+      padding: 2rem 1rem;
+    }
+  }

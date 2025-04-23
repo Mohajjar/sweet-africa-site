@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+  />
+
+  <link rel="stylesheet" href="css/contact.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  
+  <title>Contact Us — Sweet Africa Global LLC</title>
+</head>
+<body class="booking-page">
+
+<!-- partials/contact.html -->
+<section id="contact" class="py-16 bg-gradient-to-b from-blue-50 to-white">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-center mb-6">Contact Us</h2>
+        <form id="contact-form" class="space-y-6">
+          <!-- Name -->
+          <div>
+            <label for="contact-name" class="block text-sm font-medium text-gray-700">
+              Name <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              required
+              class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Your full name"
+            />
+          </div>
+          <!-- Email -->
+          <div>
+            <label for="contact-email" class="block text-sm font-medium text-gray-700">
+              E-mail <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              required
+              class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="you@example.com"
+            />
+          </div>
+          <!-- Phone -->
+          <div>
+            <label for="contact-phone" class="block text-sm font-medium text-gray-700">
+              Contact Number <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="tel"
+              id="contact-phone"
+              name="phone"
+              required
+              class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="+1 (123) 456-7890"
+            />
+          </div>
+          <!-- Message -->
+          <div>
+            <label for="contact-message" class="block text-sm font-medium text-gray-700">
+              Message <span class="text-red-500">*</span>
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="4"
+              required
+              class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="How can we help?"
+            ></textarea>
+          </div>
+          <!-- Submit -->
+          <div class="text-center">
+            <button
+              type="submit"
+              class="mt-4 inline-flex justify-center py-3 px-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+    <!-- navbar placeholder -->
+    <div data-include="navbar.html"></div>
+
+  <!-- load includes.js to pull in navbar.html -->
+  <script src="js/includes.js" defer></script>
+  <!-- your other site scripts -->
+  <script type="module" src="js/main.js" defer></script>
+</body>
+</html>
