@@ -1,43 +1,42 @@
-exports.handler = async (event, context) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
-  }
+const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK_URL;
 
-  // parse the form payload
-  const data = JSON.parse(event.body);
-  const { name, email, phone, message } = data;
+exports.handler = async function (event, context) {
+  // (2) parse the URL-encoded payload
+  const data = Object.fromEntries(new URLSearchParams(event.body));
 
-  // grab your webhook from environment
-  const webhookURL = process.env.DISCORD_WEBHOOK_URL;
-  if (!webhookURL) {
-    console.error("No webhook URL set");
-    return { statusCode: 500, body: "Configuration error" };
-  }
+  // Build the message
+  const content =
+    `**New Contact Form Submission**\n` +
+    `• **Name:** ${data.name}\n` +
+    `• **Email:** ${data.email}\n` +
+    `• **Phone:** ${data.phone}\n` +
+    `• **Message:** ${data.message}`;
 
-  // build your Discord message
-  const discordPayload = {
-    content:
-      `**New Contact Form Submission**\n` +
-      `**Name:** ${name}\n` +
-      `**Email:** ${email}\n` +
-      `**Phone:** ${phone}\n` +
-      `**Message:** ${message}\n`,
-  };
-
-  // send to Discord
   try {
-    await fetch(webhookURL, {
+    // (3) POST to Discord
+    const res = await fetch(DISCORD_WEBHOOK, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(discordPayload),
+      body: JSON.stringify({ content }),
     });
-  } catch (err) {
-    console.error("Discord webhook error", err);
-    return { statusCode: 502, body: "Failed to send to Discord" };
-  }
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ msg: "Message sent" }),
-  };
+    if (!res.ok) {
+      // something went wrong at Discord’s end
+      const text = await res.text();
+      return { statusCode: 502, body: `Discord error: ${text}` };
+    }
+
+    // success
+    return {
+      statusCode: 200,
+      body: "✔️ Sent to Discord",
+    };
+  } catch (err) {
+    // network / runtime error
+    console.error("Function error:", err);
+    return {
+      statusCode: 500,
+      body: `Internal error: ${err.message}`,
+    };
+  }
 };
