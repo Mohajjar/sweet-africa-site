@@ -23,3 +23,22 @@ body {
   html {
     scroll-behavior: smooth;
   }
+
+  .btn-cta {
+    background-color: #0095f7;
+    color: #fff;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+  }
+  
+  .btn-cta:hover {
+    background-color: #007acc;
+    transform: translateY(-1px);
+  }
+
+  #faq-promo h2 {
+    color: #3a3f52;
+  }
