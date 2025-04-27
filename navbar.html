@@ -4,7 +4,7 @@
 >
   <!-- Logo -->
   <a href="/" class="text-3xl font-bold">
-   <img src="images/new design logo size (1).png" alt="Logo" class="h-10">
+    <img src="/images/logo.png" alt="Sweet Africa logo" class="h-10">
   </a>
 
   <!-- Burger (shown only on MOBILE) -->
@@ -22,11 +22,11 @@
     <li><a href="/#hero" class="text-gray-700 hover:text-gray-900">Home</a></li>
     <li><a href="/#why-choose-us" class="text-gray-700 hover:text-gray-900">About</a></li>
     <li><a href="/#discover-services" class="text-gray-700 hover:text-gray-900">Services</a></li>
-    <li><a href="blog.html" class="text-gray-700 hover:text-gray-900">Blogs</a></li>
-    <li><a href="faq.html"             class="block text-gray-700">FAQ</a></li>
-    <li><a href="contact.html" class="text-gray-700 hover:text-gray-900">Contact</a></li>
+    <li><a href="/blog.html" class="text-gray-700 hover:text-gray-900">Blogs</a></li>
+    <li><a href="/faq.html" class="text-gray-700 hover:text-gray-900">FAQ</a></li>
+    <li><a href="/contact.html" class="text-gray-700 hover:text-gray-900">Contact</a></li>
     <li>
-      <a href="booking.html"
+      <a href="/booking.html"
          target="_blank"
          class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
       >
@@ -38,21 +38,25 @@
 
 <!-- MOBILE MENU -->
 <div class="navbar-menu fixed top-[70px] bottom-0 left-0 right-0 z-50 hidden">
-    <!-- backdrop -->
   <div class="navbar-backdrop absolute inset-0 bg-black opacity-30"></div>
-  <nav class="relative bg-white w-5/6 max-w-sm h-full p-6 overflow-y-auto">
-    <nav class="relative z-10 bg-white w-5/6 max-w-sm h-full p-6 overflow-y-auto">
-      <button class="navbar-close mb-6"></button>
-      <ul class="space-y-4">
-        <li><a href="index.html" class="block …">Home</a></li>
-        <li><a href="index.html#why-choose-us" class="block text-gray-700">About</a></li>
-      <li><a href="index.html#discover-services"   class="block text-gray-700">Services</a></li>
-      <li><a href="#" class="block text-gray-700">Blogs</a></li>
-      <li><a href="faq.html"             class="block text-gray-700">FAQ</a></li>
-      <li><a href="contact.html" class="block text-gray-700">Contact</a></li>
-      <li><a href="booking.html" class="block text-gray-700">Book Now</a></li>
-      </ul>
-    </nav>
+  <div class="relative bg-white w-5/6 max-w-sm h-full p-6 overflow-y-auto shadow-xl">
+    <button class="navbar-close mb-6" aria-label="Close menu">
+      <svg class="h-6 w-6 text-gray-600" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <ul class="space-y-4">
+      <li><a href="/#hero"           class="block text-gray-700">Home</a></li>
+      <li><a href="/#why-choose-us"  class="block text-gray-700">About</a></li>
+      <li><a href="/#discover-services" class="block text-gray-700">Services</a></li>
+      <li><a href="/blog.html"       class="block text-gray-700">Blogs</a></li>
+      <li><a href="/faq.html"        class="block text-gray-700">FAQ</a></li>
+      <li><a href="/contact.html"    class="block text-gray-700">Contact</a></li>
+      <li><a href="/booking.html"    class="block text-gray-700">Book Now</a></li>
+    </ul>
+  </div>
+</div>
 
 
   <!-- panel -->
