@@ -104,4 +104,14 @@
   right: 0;
   bottom: 0;
 }
+
+/* force the mobile panel closed by default */
+.navbar-menu {
+  display: none !important;
+}
+
+/* when JS removes the “hidden” class, turn it back on */
+.navbar-menu:not(.hidden) {
+  display: block !important;
+}
   
