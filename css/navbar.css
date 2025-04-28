@@ -114,4 +114,18 @@
 .navbar-menu:not(.hidden) {
   display: block !important;
 }
+
+:root {
+  --nav-height: 70px;
+}
+
+/* push all pages down so nothing hides under #mainNav */
+body {
+  padding-top: var(--nav-height);
+}
+
+/* make in-page anchor jumps land below the nav */
+html {
+  scroll-padding-top: var(--nav-height);
+}
   
