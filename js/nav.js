@@ -1,24 +1,17 @@
 // js/nav.js
 export function initNav() {
   const nav = document.getElementById("mainNav");
-  console.log("🛰 initNav() called. nav:", nav);
   if (!nav) return;
 
-  // force a transition so we know it’s applied
-  nav.style.transition = "transform 0.3s ease-in-out";
-  nav.style.transform = "translateY(0)";
+  // nav.style.transition = ...;
+  // nav.style.transform = ...;
 
   let lastY = window.scrollY;
-  console.log("🛰 initNav: starting lastY =", lastY);
-
   window.addEventListener("scroll", () => {
     const currentY = window.scrollY;
-    console.log("🛰 scroll event, currentY =", currentY);
     if (currentY > lastY && currentY > nav.offsetHeight) {
-      console.log("🛰 hiding nav");
       nav.style.transform = `translateY(-${nav.offsetHeight}px)`;
     } else {
-      console.log("🛰 showing nav");
       nav.style.transform = "translateY(0)";
     }
     lastY = currentY;
