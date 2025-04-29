@@ -187,6 +187,7 @@
   </main>
 
   <script>
+    const API_BASE = 'https://sag-admin.herokuapp.com';
     document.addEventListener('DOMContentLoaded', () => {
       // derive article slug from the filename, e.g. "blogarticle1.html" → "blogarticle1"
       const slug = window.location.pathname
@@ -202,7 +203,7 @@
       async function loadComments() {
         listEl.innerHTML = '<p class="text-gray-500">Loading comments…</p>';
         try {
-          const res = await fetch(`/api/comments?article=${slug}`);
+          const res = await fetch(`${API_BASE}/api/comments?article=${slug}`);
           const comments = await res.json();
           if (!comments.length) {
             listEl.innerHTML = '<p class="text-gray-500">No comments yet. Be the first!</p>';
@@ -250,11 +251,11 @@
           return;
         }
         try {
-          const res = await fetch('/api/comments', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
+          const res = await fetch(`${API_BASE}/api/comments`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+});
           if (!res.ok) throw new Error();
           const newComment = await res.json();
           // append immediately
