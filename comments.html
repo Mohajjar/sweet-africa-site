@@ -1,0 +1,40 @@
+<!-- Comments Section -->
+<section id="comments-widget" class="max-w-3xl mx-auto mt-12 space-y-8 px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Title -->
+    <h2 class="text-3xl font-bold text-gray-900 border-b pb-2">Comments</h2>
+  
+    <!-- Comment List -->
+    <div id="comment-list" class="space-y-6">
+      <p class="text-gray-500 italic">Loading comments…</p>
+    </div>
+  
+    <!-- Comment Form Card -->
+    <div class="bg-white p-6 rounded-xl shadow-md">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-4">Leave a Comment</h3>
+      <form id="comment-form" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <input type="text" id="firstName" name="firstName" required
+                   class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50" />
+          </div>
+          <div>
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required
+                   class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50" />
+          </div>
+        </div>
+        <div>
+          <label for="comment" class="block text-sm font-medium text-gray-700">Your Comment</label>
+          <textarea id="comment" name="comment" rows="4" required
+                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50"></textarea>
+        </div>
+        <button type="submit"
+                class="inline-flex items-center px-5 py-2 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark transition">
+          Post Comment
+        </button>
+        <p id="form-error" class="text-red-500 text-sm mt-2 hidden"></p>
+      </form>
+    </div>
+  </section>
