@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+  <title>Client Login — Sweet Africa Global LLC</title>
+
+  <!-- Tailwind (dev only) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Base styles (defines --nav-height & body padding) -->
+  <link rel="stylesheet" href="/css/base.css" />
+
+  <!-- Navbar + Footer + MQ overrides -->
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+  <link rel="stylesheet" href="/css/media-queries.css" />
+
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWD..."
+    crossorigin="anonymous"
+  />
+
+  <!-- Font Awesome & Ionic -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/ionicons@4.2.0/dist/css/ionicons.min.css"
+  />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
+    rel="stylesheet"
+  />
+</head>
+
+<body class="bg-white">
+  <!-- Nav -->
+  <div data-include="/navbar.html"></div>
+
+  <!-- Main (push below fixed nav) -->
+  <main class="pt-[var(--nav-height)]">
+    <section class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center"></h2>
+
+        <div class="login-widget shadow-lg rounded-lg overflow-hidden">
+          <iframe
+            src="https://sweetafricaglobal.bookingkoala.com/login?embed=true"
+            style="border:none; height:650px;"
+            width="100%"
+            scrolling="no"
+          ></iframe>
+          <script
+            src="https://sweetafricaglobal.bookingkoala.com/resources/embed.js"
+            defer
+          ></script>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div data-include="/footer.html"></div>
+
+  <!-- Partials loader & site JS -->
+  <script src="/js/includes.js" defer></script>
+  <script src="/js/main.js" type="module" defer></script>
+
+  <!-- Bootstrap JS dependencies -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
