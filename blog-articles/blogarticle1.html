@@ -187,19 +187,13 @@
   </main>
 
   <script>
-    const API_BASE = 'https://sag-admin.herokuapp.com';
     document.addEventListener('DOMContentLoaded', () => {
-      // derive article slug from the filename, e.g. "blogarticle1.html" → "blogarticle1"
-      const slug = window.location.pathname
-        .split('/')
-        .pop()
-        .replace('.html', '');
-  
+      const API_BASE = 'https://<YOUR-HEROKU-APP>.herokuapp.com';
+      const slug = window.location.pathname.split('/').pop().replace('.html','');
       const listEl = document.getElementById('comment-list');
       const form = document.getElementById('comment-form');
       const errorEl = document.getElementById('form-error');
   
-      // Fetch & render existing comments
       async function loadComments() {
         listEl.innerHTML = '<p class="text-gray-500">Loading comments…</p>';
         try {
@@ -209,32 +203,26 @@
             listEl.innerHTML = '<p class="text-gray-500">No comments yet. Be the first!</p>';
             return;
           }
+          listEl.innerHTML = '';
           comments.forEach(c => {
-  const card = document.createElement('div');
-  card.className = 'bg-white p-6 rounded-xl shadow-sm';
-
-  const header = document.createElement('div');
-  header.className = 'flex items-center justify-between';
-  header.innerHTML = `
-    <p class="text-lg font-medium text-gray-900">${c.firstName} ${c.lastName}</p>
-    <span class="text-sm text-gray-500">${new Date(c.timestamp).toLocaleString()}</span>
-  `;
-
-  const body = document.createElement('p');
-  body.className = 'mt-3 text-gray-800';
-  body.textContent = c.comment;
-
-  card.append(header, body);
-  listEl.append(card);
-});
-        } catch (e) {
+            const card = document.createElement('div');
+            card.className = 'bg-white p-6 rounded-xl shadow-sm';
+            card.innerHTML = `
+              <div class="flex justify-between">
+                <p class="font-medium">${c.firstName} ${c.lastName}</p>
+                <span class="text-sm text-gray-500">${new Date(c.timestamp).toLocaleString()}</span>
+              </div>
+              <p class="mt-3 text-gray-800">${c.comment}</p>
+            `;
+            listEl.append(card);
+          });
+        } catch (err) {
           listEl.innerHTML = '<p class="text-red-500">Failed to load comments.</p>';
         }
       }
   
       loadComments();
   
-      // Handle form submission
       form.addEventListener('submit', async e => {
         e.preventDefault();
         errorEl.classList.add('hidden');
@@ -244,44 +232,35 @@
           comment:   form.comment.value.trim(),
           article:   slug
         };
-        // basic client-side validation
         if (data.comment.length < 5) {
           errorEl.textContent = 'Comment must be at least 5 characters.';
-          errorEl.classList.remove('hidden');
-          return;
+          return errorEl.classList.remove('hidden');
         }
         try {
           const res = await fetch(`${API_BASE}/api/comments`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(data)
-});
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
           if (!res.ok) throw new Error();
-          const newComment = await res.json();
-          // append immediately
-          const c = newComment;
-          const container = document.createElement('div');
-          container.className = 'p-4 border rounded-lg';
-  
-          const header = document.createElement('p');
-          header.className = 'font-medium';
-          header.textContent = `${c.firstName} ${c.lastName} • ${new Date(c.timestamp).toLocaleString()}`;
-  
-          const body = document.createElement('p');
-          body.className = 'mt-2 text-gray-800';
-          body.textContent = c.comment;
-  
-          container.append(header, body);
-          listEl.prepend(container);
+          const newC = await res.json();
+          const card = document.createElement('div');
+          card.className = 'bg-white p-6 rounded-xl shadow-sm';
+          card.innerHTML = `
+            <div class="flex justify-between">
+              <p class="font-medium">${newC.firstName} ${newC.lastName}</p>
+              <span class="text-sm text-gray-500">${new Date(newC.timestamp).toLocaleString()}</span>
+            </div>
+            <p class="mt-3 text-gray-800">${newC.comment}</p>
+          `;
+          listEl.prepend(card);
           form.reset();
-        } catch (err) {
+        } catch {
           errorEl.textContent = 'Failed to post comment.';
           errorEl.classList.remove('hidden');
         }
       });
     });
-
-
   </script>
 
   <!-- Sticky share bar, etc… -->
