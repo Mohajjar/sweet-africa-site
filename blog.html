@@ -377,36 +377,21 @@
     .then(html => {
       const wrapper = document.createElement('div');
       wrapper.innerHTML = html;
-
-      // Remove any inline <script> tags from widget
-      wrapper.querySelectorAll("script").forEach((s) => s.remove());
-
+      wrapper.querySelectorAll("script").forEach(s => s.remove());
       document.body.appendChild(wrapper);
 
+      // Wait for DOM, then bind init
       setTimeout(() => {
         const toggler = document.querySelector("#chatbot-toggler");
-        const popup = document.querySelector(".chatbot-popup");
-        const hasInit = typeof window.initChatbot === "function";
-
-        console.log("Toggler found:", !!toggler);
-        console.log("Popup found:", !!popup);
-        console.log("Init function exists:", hasInit);
-
-        if (hasInit) {
-          try {
-            window.initChatbot();
-            console.log("✅ initChatbot() executed.");
-          } catch (err) {
-            console.error("❌ initChatbot() error:", err);
-          }
+        if (window.initChatbot && toggler) {
+          window.initChatbot();
+          console.log("✅ initChatbot called after HTML inject");
         } else {
-          console.warn("⚠️ initChatbot() missing.");
+          console.warn("⚠️ Missing chatbot element or function.");
         }
       }, 500);
     });
-    if (window.initChatbot) {
-  window.initChatbot();
-}
+</script>
 </script>
 </body>
 </html>
