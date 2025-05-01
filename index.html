@@ -42,7 +42,6 @@
   <link rel="stylesheet" href="css/services.css" />
   <link rel="stylesheet" href="css/features.css" />
   <link rel="stylesheet" href="css/our-work.css" />
-  <link rel="stylesheet" href="css/faq-cta.css" />
   <link rel="stylesheet" href="css/contact.css" />
   <link rel="stylesheet" href="css/licensed.css" />
   <link rel="stylesheet" href="css/footer.css" />
@@ -109,28 +108,28 @@
 <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
 <script src="/chatbot/js/script.js" defer></script>
 
-  <!-- Inject chatbot HTML and run -->
-  <script>
-    fetch('/chatbot-widget.html')
-      .then(res => res.text())
-      .then(html => {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = html;
-        wrapper.querySelectorAll("script").forEach(s => s.remove());
-        document.body.appendChild(wrapper);
-  
-        // Wait for DOM, then bind init
-        setTimeout(() => {
-          const toggler = document.querySelector("#chatbot-toggler");
-          if (window.initChatbot && toggler) {
-            window.initChatbot();
-            console.log("✅ initChatbot called after HTML inject");
-          } else {
-            console.warn("⚠️ Missing chatbot element or function.");
-          }
-        }, 500);
-      });
-  </script>
+<script>
+  fetch('/chatbot-widget.html')
+    .then(res => res.text())
+    .then(html => {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      wrapper.querySelectorAll("script").forEach(s => s.remove());
+      document.body.appendChild(wrapper);
+
+      const waitForInit = () => {
+        if (window.initChatbot && document.querySelector("#chatbot-toggler")) {
+          window.initChatbot();
+          console.log("✅ initChatbot successfully initialized.");
+        } else {
+          console.warn("⏳ Waiting for chatbot HTML or function...");
+          setTimeout(waitForInit, 200);
+        }
+      };
+
+      waitForInit();
+    });
+</script>
  
 </body>
 </html>
