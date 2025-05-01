@@ -14,10 +14,8 @@ const slider = document.querySelector(".chat-modes .slider");
 // ===== Local Storage Setup =====
 const LOCAL_STORAGE_CHAT_ID_KEY = "chatId";
 const LOCAL_STORAGE_CHAT_MESSAGES_KEY = "chatMessages";
-// Expire messages after 2 hours
 const MESSAGE_EXPIRATION_MS = 2 * 60 * 60 * 1000;
 
-// ===== URL → clickable <a> helper =====
 function linkify(text) {
   return text.replace(
     /(https?:\/\/[^\s]+)/g,
@@ -26,7 +24,6 @@ function linkify(text) {
   );
 }
 
-// ===== Storage CRUD =====
 let chatId = localStorage.getItem(LOCAL_STORAGE_CHAT_ID_KEY);
 if (!chatId) {
   chatId = generateRandomId(12);
@@ -61,7 +58,6 @@ function pruneOldMessages() {
   saveStoredMessages(messages);
 }
 
-// ===== Render Chat from LocalStorage =====
 function loadLocalChatMessages() {
   pruneOldMessages();
 
@@ -77,11 +73,9 @@ function loadLocalChatMessages() {
       minute: "2-digit",
     });
 
-    // Bubble + timestamp siblings
-    const html = `
-      <div class="message-text">${linkify(msg.text)}</div>
-      <span class="timestamp">${timeString}</span>
-    `;
+    const html = `<div class=\"message-text\">${linkify(
+      msg.text
+    )}</div><span class=\"timestamp\">${timeString}</span>`;
 
     const typeClass =
       msg.type === "bot"
@@ -96,7 +90,6 @@ function loadLocalChatMessages() {
   chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
 }
 
-// ===== Firebase Setup =====
 const firebaseConfig = {
   apiKey: "AIzaSyBxzRk31KD-N6vORRJBWOleEUUVguUIhr0",
   authDomain: "waiting-list-by-mo.firebaseapp.com",
@@ -108,10 +101,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Kick things off
 loadLocalChatMessages();
 
-// ===== Firestore → LocalSync =====
 const messagesQuery = db.collection(chatId).orderBy("createdAt", "asc");
 messagesQuery.onSnapshot(
   (snapshot) => {
@@ -144,7 +135,6 @@ messagesQuery.onSnapshot(
   (err) => console.error("Firestore error:", err)
 );
 
-// ===== Helpers =====
 function createMessageElement(innerHTML, ...classes) {
   const el = document.createElement("div");
   el.classList.add("message", ...classes);
@@ -161,15 +151,87 @@ function generateRandomId(length = 12) {
   return id;
 }
 
-// ===== Outgoing Message Handler =====
-const initialInputHeight = messageInput.scrollHeight;
+const BOT_API_URL =
+  "https://chat-bot-ba75c8ca6902.herokuapp.com/chatWithGemini";
+const LIVE_AGENT_API_URL =
+  "https://chat-bot-ba75c8ca6902.herokuapp.com/sendMessageToLiveAgent";
+
+window.initChatbot = function () {
+  const chatBody = document.querySelector(".chat-body");
+  const messageInput = document.querySelector(".message-input");
+  const sendMessageBtn = document.querySelector("#send-message");
+  const chatbotToggler = document.querySelector("#chatbot-toggler");
+  const closeChatbot = document.querySelector("#close-chatbot");
+  const tabBot = document.querySelector("#tab-bot");
+  const tabLiveAgent = document.querySelector("#tab-live-agent");
+  const slider = document.querySelector(".chat-modes .slider");
+
+  if (!chatBody || !messageInput || !sendMessageBtn) return;
+
+  const initialInputHeight = messageInput.scrollHeight;
+
+  messageInput.addEventListener("input", () => {
+    messageInput.style.height = `${initialInputHeight}px`;
+    messageInput.style.height = `${messageInput.scrollHeight}px`;
+    document.querySelector(".chat-form").style.borderRadius =
+      messageInput.scrollHeight > initialInputHeight ? "15px" : "32px";
+  });
+
+  messageInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey && messageInput.value.trim())
+      handleOutgoingMessage(e);
+  });
+
+  sendMessageBtn.addEventListener("click", handleOutgoingMessage);
+  chatbotToggler.addEventListener("click", () =>
+    document.body.classList.toggle("show-chatbot")
+  );
+  closeChatbot.addEventListener("click", () =>
+    document.body.classList.remove("show-chatbot")
+  );
+
+  tabBot.addEventListener("click", () => {
+    activeChatMode = "bot";
+    document.querySelector(".logo-text").innerText = "Client Services";
+    tabBot.classList.add("active");
+    tabLiveAgent.classList.remove("active");
+    slider.style.transform = "translateX(0)";
+    loadLocalChatMessages();
+  });
+
+  tabLiveAgent.addEventListener("click", () => {
+    activeChatMode = "liveAgent";
+    document.querySelector(".logo-text").innerText = "Live Chat";
+    tabLiveAgent.classList.add("active");
+    tabBot.classList.remove("active");
+    slider.style.transform = "translateX(100%)";
+    loadLocalChatMessages();
+  });
+
+  const picker = new EmojiMart.Picker({
+    theme: "light",
+    skinTonePosition: "none",
+    previewPosition: "none",
+    onEmojiSelect: (emoji) => {
+      const { selectionStart: start, selectionEnd: end } = messageInput;
+      messageInput.setRangeText(emoji.native, start, end, "end");
+      messageInput.focus();
+    },
+    onClickOutside: (e) => {
+      if (e.target.id === "emoji-picker")
+        document.body.classList.toggle("show-emoji-picker");
+      else document.body.classList.remove("show-emoji-picker");
+    },
+  });
+  document.querySelector(".chat-form").appendChild(picker);
+};
 
 async function handleOutgoingMessage(e) {
   e.preventDefault();
-  const text = messageInput.value.trim();
+  const text = document.querySelector(".message-input").value.trim();
   if (!text) return;
-  messageInput.value = "";
-  messageInput.dispatchEvent(new Event("input"));
+  document.querySelector(".message-input").value = "";
+  document.querySelector(".message-input").dispatchEvent(new Event("input"));
 
   const id = generateRandomId();
   addMessageToLocalStorage({
@@ -183,10 +245,10 @@ async function handleOutgoingMessage(e) {
 
   if (activeChatMode === "bot") {
     const thinkingHTML = `
-      <img class="bot-avatar" src="chatbot/img/robotic.avif" alt="Avatar" width="50" height="50" />
-      <div class="message-text">
-        <div class="thinking-indicator">
-          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <img class=\"bot-avatar\" src=\"chatbot/img/robotic.avif\" alt=\"Avatar\" width=\"50\" height=\"50\" />
+      <div class=\"message-text\">
+        <div class=\"thinking-indicator\">
+          <div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div>
         </div>
       </div>`;
     const bubble = createMessageElement(
@@ -194,11 +256,13 @@ async function handleOutgoingMessage(e) {
       "bot-message",
       "thinking"
     );
-    chatBody.appendChild(bubble);
-    chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+    document.querySelector(".chat-body").appendChild(bubble);
+    document.querySelector(".chat-body").scrollTo({
+      top: document.querySelector(".chat-body").scrollHeight,
+      behavior: "smooth",
+    });
     await generateBotResponse(bubble, text);
   } else {
-    // live‑agent branch
     await fetch(LIVE_AGENT_API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -208,68 +272,6 @@ async function handleOutgoingMessage(e) {
   }
 }
 
-// ===== Event Listeners =====
-messageInput.addEventListener("input", () => {
-  messageInput.style.height = `${initialInputHeight}px`;
-  messageInput.style.height = `${messageInput.scrollHeight}px`;
-  document.querySelector(".chat-form").style.borderRadius =
-    messageInput.scrollHeight > initialInputHeight ? "15px" : "32px";
-});
-
-messageInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey && messageInput.value.trim())
-    handleOutgoingMessage(e);
-});
-sendMessageBtn.addEventListener("click", handleOutgoingMessage);
-chatbotToggler.addEventListener("click", () =>
-  document.body.classList.toggle("show-chatbot")
-);
-closeChatbot.addEventListener("click", () =>
-  document.body.classList.remove("show-chatbot")
-);
-
-tabBot.addEventListener("click", () => {
-  activeChatMode = "bot";
-  document.querySelector(".logo-text").innerText = "Client Services";
-  tabBot.classList.add("active");
-  tabLiveAgent.classList.remove("active");
-  slider.style.transform = "translateX(0)";
-  loadLocalChatMessages();
-});
-
-tabLiveAgent.addEventListener("click", () => {
-  activeChatMode = "liveAgent";
-  document.querySelector(".logo-text").innerText = "Live Chat";
-  tabLiveAgent.classList.add("active");
-  tabBot.classList.remove("active");
-  slider.style.transform = "translateX(100%)";
-  loadLocalChatMessages();
-});
-
-// ===== Emoji Picker =====
-const BOT_API_URL =
-  "https://chat-bot-ba75c8ca6902.herokuapp.com/chatWithGemini";
-const LIVE_AGENT_API_URL =
-  "https://chat-bot-ba75c8ca6902.herokuapp.com/sendMessageToLiveAgent";
-
-const picker = new EmojiMart.Picker({
-  theme: "light",
-  skinTonePosition: "none",
-  previewPosition: "none",
-  onEmojiSelect: (emoji) => {
-    const { selectionStart: start, selectionEnd: end } = messageInput;
-    messageInput.setRangeText(emoji.native, start, end, "end");
-    messageInput.focus();
-  },
-  onClickOutside: (e) => {
-    if (e.target.id === "emoji-picker")
-      document.body.classList.toggle("show-emoji-picker");
-    else document.body.classList.remove("show-emoji-picker");
-  },
-});
-document.querySelector(".chat-form").appendChild(picker);
-
-// ===== Bot Response =====
 async function generateBotResponse(el, userText) {
   const contentEl = el.querySelector(".message-text");
   try {
@@ -280,7 +282,6 @@ async function generateBotResponse(el, userText) {
     });
     const json = await res.json();
     if (!res.ok) throw new Error(json.error?.message || "Error");
-    // insert clickable HTML
     contentEl.innerHTML = linkify(json.reply);
     addMessageToLocalStorage({
       id: generateRandomId(),

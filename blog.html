@@ -40,15 +40,18 @@
 
   <style>
     :root { --nav-height: 70px; }
-    /* push *all* page content below the navbar */
     body {
       padding-top: var(--nav-height) !important;
     }
-    /* ensure anchor-links stop below the navbar */
     html {
       scroll-padding-top: var(--nav-height);
     }
   </style>
+
+  <!-- Chatbot Styles and Icons -->
+  <link rel="preload" href="/chatbot/js/script.js" as="script">
+  <link rel="stylesheet" href="/chatbot/css/style.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0">
 
 </head>
 <body>
@@ -360,5 +363,50 @@
     crossorigin="anonymous"
   ></script>
   <script type="module" src="js/main.js" defer></script>
+
+  <!-- Chatbot Scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+<script src="/chatbot/js/script.js" defer></script>
+
+<!-- Inject chatbot HTML and run -->
+<script>
+  fetch('/chatbot-widget.html')
+    .then(res => res.text())
+    .then(html => {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+
+      // Remove any inline <script> tags from widget
+      wrapper.querySelectorAll("script").forEach((s) => s.remove());
+
+      document.body.appendChild(wrapper);
+
+      setTimeout(() => {
+        const toggler = document.querySelector("#chatbot-toggler");
+        const popup = document.querySelector(".chatbot-popup");
+        const hasInit = typeof window.initChatbot === "function";
+
+        console.log("Toggler found:", !!toggler);
+        console.log("Popup found:", !!popup);
+        console.log("Init function exists:", hasInit);
+
+        if (hasInit) {
+          try {
+            window.initChatbot();
+            console.log("✅ initChatbot() executed.");
+          } catch (err) {
+            console.error("❌ initChatbot() error:", err);
+          }
+        } else {
+          console.warn("⚠️ initChatbot() missing.");
+        }
+      }, 500);
+    });
+    if (window.initChatbot) {
+  window.initChatbot();
+}
+</script>
 </body>
 </html>

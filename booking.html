@@ -11,6 +11,12 @@
   />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/navbar.css" />
+
+<!-- Chatbot Styles and Icons -->
+<link rel="preload" href="/chatbot/js/script.js" as="script">
+<link rel="stylesheet" href="/chatbot/css/style.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0">
+
   <title>Book a Cleaning — Sweet Africa Global LLC</title>
 </head>
 <body class="booking-page">
@@ -38,5 +44,29 @@
   <script src="js/includes.js" defer></script>
   <!-- your other site scripts -->
   <script type="module" src="js/main.js" defer></script>
+
+  <!-- Chatbot Scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+<script src="/chatbot/js/script.js" defer></script>
+
+<!-- Inject chatbot HTML and initialize -->
+<script>
+  fetch('/chatbot-widget.html')
+    .then(res => res.text())
+    .then(html => {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      wrapper.querySelectorAll("script").forEach((s) => s.remove());
+      document.body.appendChild(wrapper);
+
+      setTimeout(() => {
+        if (window.initChatbot) {
+          window.initChatbot();
+        }
+      }, 500);
+    });
+</script>
 </body>
 </html>

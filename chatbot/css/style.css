@@ -57,7 +57,8 @@ body.show-chatbot #chatbot-toggler span:last-child {
   transform-origin: bottom right;
   box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
     0 32px 64px -48px rgba(0, 0, 0, 0.5);
-  transition: all 0.1s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
 }
 
 body.show-chatbot .chatbot-popup {
@@ -521,12 +522,9 @@ body.show-emoji-picker em-emoji-picker {
 }
 
 /* Prevent background page from scrolling when chat is open */
-body.show-chatbot {
-  position: fixed;
-  width: 100%;
-  height: 100%;
+/* body.show-chatbot {
   overflow: hidden;
-}
+} */
 
 .chat-body .message-text {
   /* allow long words / URLs to break onto the next line */
@@ -539,3 +537,11 @@ body.show-chatbot {
   color: #00abb1;
   text-decoration: underline;
 }
+
+body.show-chatbot .chatbot-popup {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: scale(1) !important;
+}
+
