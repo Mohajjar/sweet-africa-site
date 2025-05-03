@@ -4,28 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blog Article</title>
-  <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Tailwind CSS with Typography Plugin -->
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <script>
     tailwind.config = {
       theme: {
-        extend: {}
+        extend: {},
       },
-      plugins: [tailwind.typography]
-    }
+      plugins: [tailwind.typography],
+    };
   </script>
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800">
 
+<body class="bg-white text-gray-800 font-sans leading-relaxed">
   <main class="max-w-3xl mx-auto px-4 py-10">
     <div id="blogContent" class="space-y-6 text-lg leading-relaxed"></div>
   </main>
 
   <script>
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCP1DrT1LkOwm4947b3_5A_65udWly0g5E",
       authDomain: "sweet-africa-global-db.firebaseapp.com",
@@ -35,39 +37,40 @@
       appId: "1:273787683112:web:db0a43890f198bf8be101d",
       measurementId: "G-RTFCK2BFQ4",
     };
-  
+
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-  
+
     function getSlugFromURL() {
       const params = new URLSearchParams(window.location.search);
       return params.get("slug");
     }
-  
+
     async function renderBlog() {
       const slug = getSlugFromURL();
       if (!slug) {
         document.getElementById("blogContent").innerHTML = "<p class='text-red-500'>❌ No blog slug provided.</p>";
         return;
       }
-  
+
       const querySnapshot = await db.collection("blogs").where("slug", "==", slug).limit(1).get();
-  
       if (querySnapshot.empty) {
         document.getElementById("blogContent").innerHTML = "<p class='text-red-500'>❌ Blog not found.</p>";
         return;
       }
-  
+
       const blog = querySnapshot.docs[0].data();
-  
+
       const html = `
-        <p class="text-sm text-gray-500">Published: ${blog.timestamp?.toDate().toLocaleDateString() || 'Unknown'} by ${blog.author}</p>
-        <h1 class="text-3xl font-bold">${blog.title}</h1>
+        <p class="text-sm text-gray-500 mb-2">Published: ${blog.timestamp?.toDate().toLocaleDateString() || 'Unknown'} by ${blog.author}</p>
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-4">${blog.title}</h1>
         <div class="prose max-w-none">
           ${blog.content}
         </div>
-  
-        <!-- Social sharing -->
+
+        <img src="${blog.image || '/images/default.jpg'}" alt="${blog.title}" class="mt-6 w-full rounded-lg shadow-md"/>
+
+        <!-- Share buttons -->
         <div class="mt-10 border-t pt-6">
           <h3 class="text-sm text-gray-500 mb-2">Share this post:</h3>
           <div class="flex gap-3">
@@ -76,22 +79,18 @@
             <a href="https://wa.me/?text=${encodeURIComponent(window.location.href)}" target="_blank" class="text-green-600 hover:underline">WhatsApp</a>
           </div>
         </div>
-  
-        <!-- 💬 Comments Section -->
+
+        <!-- Comments placeholder -->
         <div class="mt-16 border-t pt-6 text-gray-600">
           <h3 class="text-lg font-semibold mb-4">💬 Comments</h3>
           <p>This section is under construction. Stay tuned!</p>
         </div>
-  
-        <img src="${blog.image}" alt="${blog.title}" class="mt-6 w-full rounded-lg shadow-md"/>
       `;
-  
+
       document.getElementById("blogContent").innerHTML = html;
     }
-  
+
     renderBlog();
   </script>
-
-  
 </body>
 </html>
