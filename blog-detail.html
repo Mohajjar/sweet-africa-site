@@ -45,7 +45,7 @@
 
     function getSlugFromURL() {
       const params = new URLSearchParams(window.location.search);
-      return params.get("slug");
+      return decodeURIComponent(params.get("slug") || "").split("/").pop().replace(".html", "");
     }
 
     async function renderBlog() {
