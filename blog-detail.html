@@ -6,13 +6,17 @@
   <title>Blog Article</title>
 
   <!-- Tailwind CSS with Typography Plugin -->
-  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: { extend: {} },
-      plugins: [tailwind.typography],
+      theme: {
+        extend: {},
+      },
     };
   </script>
+  
+  <!-- Typography plugin via CDN fix -->
+  <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.9/dist/typography.min.css" rel="stylesheet">
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
