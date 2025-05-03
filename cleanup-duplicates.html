@@ -1,0 +1,41 @@
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCP1DrT1LkOwm4947b3_5A_65udWly0g5E",
+    authDomain: "sweet-africa-global-db.firebaseapp.com",
+    projectId: "sweet-africa-global-db",
+    storageBucket: "sweet-africa-global-db.firebasestorage.app",
+    messagingSenderId: "273787683112",
+    appId: "1:273787683112:web:db0a43890f198bf8be101d",
+    measurementId: "G-RTFCK2BFQ4",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  async function cleanupDuplicates() {
+    const slugMap = {};
+    const snapshot = await db.collection("blogs").get();
+
+    console.log(`🔍 Scanning ${snapshot.size} blogs...`);
+
+    for (const doc of snapshot.docs) {
+      const data = doc.data();
+      const slug = data.slug;
+
+      if (!slugMap[slug]) {
+        slugMap[slug] = doc.id; // keep first
+      } else {
+        // Delete the duplicate
+        await db.collection("blogs").doc(doc.id).delete();
+        console.warn(`🗑 Deleted duplicate for slug: ${slug}`);
+      }
+    }
+
+    console.log("✅ Done. Duplicates cleaned.");
+  }
+
+  cleanupDuplicates();
+</script>
