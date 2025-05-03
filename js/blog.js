@@ -40,22 +40,20 @@ async function loadBlogs() {
       const blog = doc.data();
 
       const blogCard = `
-        <a class="group block rounded-xl overflow-hidden focus:outline-none" href="${blog.slug}">
-          <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
-            <div class="shrink-0 relative rounded-xl overflow-hidden w-full sm:w-56 h-44">
-              <img class="group-hover:scale-105 group-focus:scale-105 transition-transform duration-500 ease-in-out size-full absolute top-0 start-0 object-cover rounded-xl" src="${blog.image}" alt="Blog Image">
-            </div>
-            <div class="grow">
-              <h3 class="text-xl font-semibold text-gray-800 group-hover:text-gray-600">${blog.title}</h3>
-              <p class="mt-3 text-gray-600">${blog.content}</p>
-              <p class="mt-4 inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 group-hover:underline group-focus:underline font-medium">
-                Read more
-                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-              </p>
-            </div>
-          </div>
-        </a>
-      `;
+  <div class="w-full sm:w-1/2 lg:w-1/2 px-4 mb-8">
+    <a href="/blog-detail.html?slug=${encodeURIComponent(
+      blog.slug
+    )}" class="block group">
+      <img src="${blog.image}" alt="${
+        blog.title
+      }" class="rounded-xl w-full h-44 object-cover mb-4 group-hover:opacity-90 transition" />
+      <h3 class="text-lg font-semibold text-gray-800 group-hover:text-blue-700 mb-1">${
+        blog.title
+      }</h3>
+      <p class="text-sm text-blue-600 group-hover:underline">Read more &rarr;</p>
+    </a>
+  </div>
+`;
 
       blogList.insertAdjacentHTML("beforeend", blogCard);
     });
