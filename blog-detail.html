@@ -5,18 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blog Article</title>
 
-  <!-- Tailwind CSS with Typography Plugin -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {},
-      },
-    };
-  </script>
-  
-  <!-- Typography plugin via CDN fix -->
-  <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.9/dist/typography.min.css" rel="stylesheet">
+
+  <!-- Tailwind Typography plugin for styling blog content -->
+<link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.9/dist/typography.min.css" rel="stylesheet">
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -39,62 +32,68 @@
       appId: "1:273787683112:web:db0a43890f198bf8be101d",
       measurementId: "G-RTFCK2BFQ4",
     };
-  
+
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-  
+
     function getSlugFromURL() {
       const params = new URLSearchParams(window.location.search);
       const rawSlug = params.get("slug") || "";
       const decodedSlug = decodeURIComponent(rawSlug);
-      return decodedSlug.split("/").pop().replace(".html", "");
+      const finalSlug = decodeURIComponent(params.get("slug"));
+      console.log("Cleaned Slug:", finalSlug);
+      return finalSlug;
     }
-  
+
     async function renderBlog() {
       const slug = getSlugFromURL();
+      const blogContent = document.getElementById("blogContent");
+
       if (!slug) {
-        document.getElementById("blogContent").innerHTML = "<p class='text-red-500'>❌ No blog slug provided.</p>";
+        blogContent.innerHTML = "<p class='text-red-500'>❌ No blog slug provided.</p>";
         return;
       }
-  
+
       try {
         const querySnapshot = await db.collection("blogs").where("slug", "==", slug).limit(1).get();
-  
+
         if (querySnapshot.empty) {
-          document.getElementById("blogContent").innerHTML = "<p class='text-red-500'>❌ Blog not found.</p>";
+          blogContent.innerHTML = "<p class='text-red-500'>❌ Blog not found (slug: " + slug + ").</p>";
           return;
         }
-  
+
         const blog = querySnapshot.docs[0].data();
-  
+
         const html = `
-          <p class="text-sm text-gray-500 mb-2">Published: ${blog.timestamp?.toDate().toLocaleDateString() || 'Unknown'} by ${blog.author || 'Unknown'}</p>
-          <h1 class="text-3xl font-extrabold text-gray-900 mb-4">${blog.title}</h1>
-          <div class="prose max-w-none">${blog.content}</div>
-          <img src="${blog.image || '/images/default.jpg'}" alt="${blog.title}" class="mt-6 w-full rounded-lg shadow-md"/>
+  <p class="text-sm text-gray-500 mb-2">Published: ${blog.timestamp?.toDate().toLocaleDateString() || 'Unknown'} by ${blog.author || 'Unknown'}</p>
+  <h1 class="text-3xl font-extrabold text-gray-900 mb-4">${blog.title}</h1>
+
+  <img src="${blog.image || '/images/default.jpg'}" alt="${blog.title}" class="mt-6 w-full rounded-lg shadow-md"/>
+
+  <!-- ✅ Prose class added below -->
+  <div class="prose max-w-none">
+    ${blog.content}
+  </div>
+
   
-          <div class="mt-10 border-t pt-6">
-            <h3 class="text-sm text-gray-500 mb-2">Share this post:</h3>
-            <div class="flex gap-3">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=${window.location.href}" target="_blank" class="text-blue-600 hover:underline">Facebook</a>
-              <a href="https://twitter.com/intent/tweet?url=${window.location.href}" target="_blank" class="text-blue-400 hover:underline">Twitter</a>
-              <a href="https://wa.me/?text=${encodeURIComponent(window.location.href)}" target="_blank" class="text-green-600 hover:underline">WhatsApp</a>
-            </div>
-          </div>
-  
-          <div class="mt-16 border-t pt-6 text-gray-600">
-            <h3 class="text-lg font-semibold mb-4">💬 Comments</h3>
-            <p>This section is under construction. Stay tuned!</p>
-          </div>
-        `;
-  
-        document.getElementById("blogContent").innerHTML = html;
+
+  <div class="mt-10 border-t pt-6">
+    <h3 class="text-sm text-gray-500 mb-2">Share this post:</h3>
+    <div class="flex gap-3">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=${window.location.href}" target="_blank" class="text-blue-600 hover:underline">Facebook</a>
+      <a href="https://twitter.com/intent/tweet?url=${window.location.href}" target="_blank" class="text-blue-400 hover:underline">Twitter</a>
+      <a href="https://wa.me/?text=${encodeURIComponent(window.location.href)}" target="_blank" class="text-green-600 hover:underline">WhatsApp</a>
+    </div>
+  </div>
+`;
+
+        blogContent.innerHTML = html;
       } catch (error) {
-        document.getElementById("blogContent").innerHTML = "<p class='text-red-500'>⚠️ Error loading blog.</p>";
+        blogContent.innerHTML = "<p class='text-red-500'>⚠️ Error loading blog.</p>";
         console.error("Error loading blog:", error);
       }
     }
-  
+
     renderBlog();
   </script>
 </body>
