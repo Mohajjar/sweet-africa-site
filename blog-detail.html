@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog Article</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Tailwind Typography plugin for styling blog content -->
-<link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.9/dist/typography.min.css" rel="stylesheet">
+  <!-- Tailwind Typography plugin -->
+  <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.9/dist/typography.min.css" rel="stylesheet">
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -19,6 +19,40 @@
 <body class="bg-white text-gray-800 font-sans leading-relaxed">
   <main class="max-w-3xl mx-auto px-4 py-10">
     <div id="blogContent" class="space-y-6 text-lg leading-relaxed"></div>
+
+    <!-- Share buttons -->
+    <div class="mt-10 border-t pt-6">
+      <h3 class="text-sm text-gray-500 mb-2">Share this post:</h3>
+      <div class="flex gap-3">
+        <a href="#" id="facebookShare" class="text-blue-600 hover:underline">Facebook</a>
+        <a href="#" id="twitterShare" class="text-blue-400 hover:underline">Twitter</a>
+        <a href="#" id="whatsappShare" class="text-green-600 hover:underline">WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div id="commentsWrapper" class="pt-10 pb-20">
+      <h3 class="text-xl font-semibold mb-4">Comments</h3>
+      <div id="commentsList" class="space-y-6 text-sm"></div>
+
+      <h3 class="text-xl font-semibold mb-4 mt-10 flex items-center gap-2">💬 Leave a Comment</h3>
+      <form id="commentForm" class="space-y-4">
+        <input type="text" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input name="firstName" placeholder="First Name" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+          <input name="lastName" placeholder="Last Name" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <input name="email" type="email" placeholder="Email" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+
+        <textarea name="comment" rows="4" placeholder="Your Comment" required class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+
+        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Submit</button>
+
+        <p id="commentMessage" class="mt-2 text-sm"></p>
+      </form>
+    </div>
   </main>
 
   <script>
@@ -30,7 +64,7 @@
       storageBucket: "sweet-africa-global-db.appspot.com",
       messagingSenderId: "273787683112",
       appId: "1:273787683112:web:db0a43890f198bf8be101d",
-      measurementId: "G-RTFCK2BFQ4",
+      measurementId: "G-RTFCK2BFQ4"
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -38,63 +72,121 @@
 
     function getSlugFromURL() {
       const params = new URLSearchParams(window.location.search);
-      const rawSlug = params.get("slug") || "";
-      const decodedSlug = decodeURIComponent(rawSlug);
-      const finalSlug = decodeURIComponent(params.get("slug"));
-      console.log("Cleaned Slug:", finalSlug);
-      return finalSlug;
+      return decodeURIComponent(params.get("slug"));
     }
 
     async function renderBlog() {
       const slug = getSlugFromURL();
       const blogContent = document.getElementById("blogContent");
 
-      if (!slug) {
-        blogContent.innerHTML = "<p class='text-red-500'>❌ No blog slug provided.</p>";
-        return;
-      }
-
       try {
         const querySnapshot = await db.collection("blogs").where("slug", "==", slug).limit(1).get();
-
         if (querySnapshot.empty) {
-          blogContent.innerHTML = "<p class='text-red-500'>❌ Blog not found (slug: " + slug + ").</p>";
+          blogContent.innerHTML = `<p class='text-red-500'>❌ Blog not found (slug: ${slug}).</p>`;
           return;
         }
 
         const blog = querySnapshot.docs[0].data();
+        blogContent.innerHTML = `
+          <p class="text-sm text-gray-500 mb-2">Published: ${blog.timestamp?.toDate().toLocaleDateString() || 'Unknown'} by ${blog.author || 'Unknown'}</p>
+          <h1 class="text-3xl font-extrabold text-gray-900 mb-4">${blog.title}</h1>
+          <img src="${blog.image || '/images/default.jpg'}" alt="${blog.title}" class="mt-6 w-full rounded-lg shadow-md"/>
+          <div class="prose max-w-none mt-6">${blog.content}</div>
+        `;
 
-        const html = `
-  <p class="text-sm text-gray-500 mb-2">Published: ${blog.timestamp?.toDate().toLocaleDateString() || 'Unknown'} by ${blog.author || 'Unknown'}</p>
-  <h1 class="text-3xl font-extrabold text-gray-900 mb-4">${blog.title}</h1>
-
-  <img src="${blog.image || '/images/default.jpg'}" alt="${blog.title}" class="mt-6 w-full rounded-lg shadow-md"/>
-
-  <!-- ✅ Prose class added below -->
-  <div class="prose max-w-none">
-    ${blog.content}
-  </div>
-
-  
-
-  <div class="mt-10 border-t pt-6">
-    <h3 class="text-sm text-gray-500 mb-2">Share this post:</h3>
-    <div class="flex gap-3">
-      <a href="https://www.facebook.com/sharer/sharer.php?u=${window.location.href}" target="_blank" class="text-blue-600 hover:underline">Facebook</a>
-      <a href="https://twitter.com/intent/tweet?url=${window.location.href}" target="_blank" class="text-blue-400 hover:underline">Twitter</a>
-      <a href="https://wa.me/?text=${encodeURIComponent(window.location.href)}" target="_blank" class="text-green-600 hover:underline">WhatsApp</a>
-    </div>
-  </div>
-`;
-
-        blogContent.innerHTML = html;
+        // Update share buttons
+        const shareURL = window.location.href;
+        document.getElementById("facebookShare").href = `https://www.facebook.com/sharer/sharer.php?u=${shareURL}`;
+        document.getElementById("twitterShare").href = `https://twitter.com/intent/tweet?url=${shareURL}`;
+        document.getElementById("whatsappShare").href = `https://wa.me/?text=${encodeURIComponent(shareURL)}`;
       } catch (error) {
         blogContent.innerHTML = "<p class='text-red-500'>⚠️ Error loading blog.</p>";
         console.error("Error loading blog:", error);
       }
     }
 
+    function loadComments(slug) {
+      db.collection("comments")
+        .where("slug", "==", slug)
+        .where("approved", "==", true)
+        .orderBy("createdAt", "desc")
+        .get()
+        .then(snapshot => {
+          const commentsList = document.getElementById("commentsList");
+          if (snapshot.empty) {
+            commentsList.innerHTML = "<p class='text-gray-500'>No comments yet. Be the first!</p>";
+            return;
+          }
+
+          commentsList.innerHTML = "";
+          snapshot.forEach(doc => {
+            const { firstName, lastName, comment, createdAt } = doc.data();
+            const date = createdAt?.toDate().toLocaleDateString() || "Unknown date";
+
+            commentsList.innerHTML += `
+              <div class="border-t pt-4">
+                <p class="text-sm font-semibold">${firstName} ${lastName}</p>
+                <p class="text-xs text-gray-400">${date}</p>
+                <p class="mt-1">${comment}</p>
+              </div>
+            `;
+          });
+        })
+        .catch(err => {
+          console.error("Failed to load comments:", err);
+        });
+    }
+
+    document.getElementById("commentForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const honeypot = form.honeypot.value;
+      const msg = document.getElementById("commentMessage");
+      msg.textContent = "";
+
+      if (honeypot !== "") {
+        msg.textContent = "Spam detected. Submission rejected.";
+        msg.className = "text-red-500";
+        return;
+      }
+
+      const slug = getSlugFromURL();
+      const firstName = form.firstName.value.trim();
+      const lastName = form.lastName.value.trim();
+      const email = form.email.value.trim();
+      const comment = form.comment.value.trim();
+
+      if (!firstName || !lastName || !email || !comment) {
+        msg.textContent = "All fields are required.";
+        msg.className = "text-red-500";
+        return;
+      }
+
+      try {
+        await db.collection("comments").add({
+          slug,
+          firstName,
+          lastName,
+          email,
+          comment,
+          approved: false,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        msg.textContent = "✅ Comment submitted for review.";
+        msg.className = "text-green-600";
+        form.reset();
+      } catch (err) {
+        console.error("Error submitting comment:", err);
+        msg.textContent = "❌ Something went wrong. Try again later.";
+        msg.className = "text-red-500";
+      }
+    });
+
+    const slug = getSlugFromURL();
     renderBlog();
+    loadComments(slug);
   </script>
 </body>
 </html>
