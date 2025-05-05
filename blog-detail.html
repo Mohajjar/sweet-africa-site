@@ -8,6 +8,8 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+
   <!-- Tailwind Typography plugin -->
   <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.9/dist/typography.min.css" rel="stylesheet">
 
@@ -21,13 +23,18 @@
     <div id="blogContent" class="space-y-6 text-lg leading-relaxed"></div>
 
     <!-- Share buttons -->
-    <div class="mt-10 border-t pt-6">
-      <h3 class="text-sm text-gray-500 mb-2">Share this post:</h3>
-      <div class="flex gap-3">
-        <a href="#" id="facebookShare" class="text-blue-600 hover:underline">Facebook</a>
-        <a href="#" id="twitterShare" class="text-blue-400 hover:underline">Twitter</a>
-        <a href="#" id="whatsappShare" class="text-green-600 hover:underline">WhatsApp</a>
-      </div>
+    <div class="flex items-center gap-4 text-2xl mt-6">
+      <a id="facebookShare" target="_blank" class="text-blue-600 hover:text-blue-800">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a id="twitterShare" target="_blank" class="hover:opacity-70" aria-label="Share on X">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+          <path d="M14.09 10.59L22 2h-1.89l-6.65 7.36L8.5 2H2l8.38 12.03L2 22h1.89l7.11-7.88L15.5 22H22l-7.91-11.41z"/>
+        </svg>
+      </a>
+      <a id="whatsappShare" target="_blank" class="text-green-600 hover:text-green-800">
+        <i class="fab fa-whatsapp"></i>
+      </a>
     </div>
 
     <!-- Comments Section -->
