@@ -44,65 +44,66 @@
   <div data-include="navbar.html"></div>
 
   <section id="contact" class="bg-white text-gray-800 py-16">
-  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-
-    <!-- Left: Contact Info -->
-    <div class="flex flex-col justify-center text-base lg:text-lg space-y-6 pr-4">
-      <h2 class="text-3xl font-bold">Contact Us</h2>
-
-      <div class="space-y-4">
-        <div class="flex items-start gap-4">
-          <i class="fas fa-phone-alt text-[#57c8da] text-xl mt-1"></i>
-          <div>
-            <p class="font-semibold">Call Us</p>
-            <p class="text-sm">+1 (323) 990-0411</p>
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+  
+      <!-- Left: Contact Info -->
+      <div class="flex flex-col justify-center text-base lg:text-lg space-y-6 pr-4">
+        <h2 class="text-3xl font-bold">Contact Us</h2>
+  
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <i class="fas fa-phone-alt text-[#57c8da] text-xl mt-1"></i>
+            <div>
+              <p class="font-semibold">Call Us</p>
+              <p class="text-sm">+1 (323) 990-0411</p>
+            </div>
           </div>
-        </div>
-
-        <div class="flex items-start gap-4">
-          <i class="fas fa-envelope text-[#57c8da] text-xl mt-1"></i>
-          <div>
-            <p class="font-semibold">Email Us</p>
-            <p class="text-sm">customerservice@sweetafricaglobal.net</p>
+  
+          <div class="flex items-start gap-4">
+            <i class="fas fa-envelope text-[#57c8da] text-xl mt-1"></i>
+            <div>
+              <p class="font-semibold">Email Us</p>
+              <p class="text-sm">customerservice@sweetafricaglobal.net</p>
+            </div>
           </div>
-        </div>
-
-        <div class="flex items-start gap-4">
-          <i class="fas fa-clock text-[#57c8da] text-xl mt-1"></i>
-          <div>
-            <p class="font-semibold">Service Hours</p>
-            <p class="text-sm">Mon–Sat: 6am – 6pm<br>Closed Sundays (available by phone)</p>
+  
+          <div class="flex items-start gap-4">
+            <i class="fas fa-clock text-[#57c8da] text-xl mt-1"></i>
+            <div>
+              <p class="font-semibold">Service Hours</p>
+              <p class="text-sm">Mon–Sat: 6am – 6pm<br>Closed Sundays (available by phone)</p>
+            </div>
           </div>
         </div>
       </div>
+  
+      <!-- Right: Contact Form -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4">Send Us a Message</h3>
+        <form id="contact-form" class="space-y-4 bg-gray-50 p-6 rounded-lg shadow-md">
+          <div class="flex flex-col md:flex-row gap-4">
+            <input type="text" name="name" placeholder="Name" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+            <input type="email" name="email" placeholder="Email" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          </div>
+          <input type="tel" name="phone" placeholder="Phone Number" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <select name="inquiry" class="w-full px-4 py-2 border border-gray-300 rounded-md">
+            <option>Select Inquiry Type</option>
+            <option>Residential Cleaning</option>
+            <option>Commercial Cleaning</option>
+            <option>Move in/out Cleaning</option>
+            <option>Support</option>
+            <option>Careers</option>
+          </select>
+          <textarea name="message" rows="4" placeholder="Your Message" class="w-full px-4 py-2 border border-gray-300 rounded-md"></textarea>
+          <button type="submit" class="w-full bg-[#57c8da] text-white py-2 rounded-md hover:bg-[#45b6ca] transition">
+            Send Message
+          </button>
+          <p id="contact-feedback" class="mt-2 text-sm"></p>
+        </form>
+      </div>
+  
     </div>
-
-    <!-- Right: Contact Form -->
-    <div>
-      <h3 class="text-xl font-semibold mb-4">Send Us a Message</h3>
-      <form class="space-y-4 bg-gray-50 p-6 rounded-lg shadow-md">
-        <div class="flex flex-col md:flex-row gap-4">
-          <input type="text" placeholder="Name" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
-          <input type="email" placeholder="Email" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <input type="tel" placeholder="Phone Number" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
-        <select class="w-full px-4 py-2 border border-gray-300 rounded-md">
-          <option>Select Inquiry Type</option>
-          <option>Residential Cleaning</option>
-          <option>Commercial Cleaning</option>
-          <option>Move in/out Cleaning</option>
-          <option>Support</option>
-          <option>Careers</option>
-        </select>
-        <textarea rows="4" placeholder="Your Message" class="w-full px-4 py-2 border border-gray-300 rounded-md"></textarea>
-        <button type="submit" class="w-full bg-[#57c8da] text-white py-2 rounded-md hover:bg-[#45b6ca] transition">
-          Send Message
-        </button>
-      </form>
-    </div>
-
-  </div>
-</section>
+  </section>
 
 
 
@@ -127,35 +128,55 @@
 
   <!-- inline script to hijack submit and show feedback -->
   <script>
-    document.addEventListener("includesLoaded", () => {
-      const form = document.getElementById("contact-form"),
-            feedback = document.getElementById("contact-feedback");
-
-      form.addEventListener("submit", async e => {
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("contact-form");
+      const feedback = document.getElementById("contact-feedback");
+  
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        feedback.textContent = "";      // clear old
-        const btn = form.querySelector("button[type=submit]");
-        btn.disabled = true;
-
-        const data = new URLSearchParams(new FormData(form));
+  
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const phone = form.phone.value.trim();
+        const inquiry = form.inquiry.value;
+        const message = form.message.value.trim();
+  
+        if (!name || !email || !message) {
+          feedback.textContent = "❌ Please fill in all required fields.";
+          feedback.className = "text-red-600 mt-2";
+          return;
+        }
+  
+        const content = `📩 **New Contact Form Submission**  
+  **Name:** ${name}  
+  **Email:** ${email}  
+  **Phone:** ${phone || 'N/A'}  
+  **Inquiry Type:** ${inquiry}  
+  **Message:**  
+  ${message}`;
+  
         try {
-          const res = await fetch("/.netlify/functions/send-discord", {
+          const res = await fetch("https://discord.com/api/webhooks/1364689976855498792/8ocfcilhVERs43siV3RzLUpuFlWrJ4G9WEotJt8itDCDihjaE2x0SVvw_Dp0f3_x889F", {
             method: "POST",
-            body: data
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content })
           });
-          if (!res.ok) throw new Error(await res.text());
-          feedback.style.color = "green";
-          feedback.textContent = "✅ Your message has been sent!";
-          form.reset();
+  
+          if (res.ok) {
+            feedback.textContent = "✅ Message sent successfully!";
+            feedback.className = "text-green-600 mt-2";
+            form.reset();
+          } else {
+            throw new Error("Discord rejected the request");
+          }
         } catch (err) {
           console.error(err);
-          feedback.style.color = "red";
-          feedback.textContent = "❌ Oops, something went wrong.";
-        } finally {
-          btn.disabled = false;
+          feedback.textContent = "❌ Failed to send message. Please try again.";
+          feedback.className = "text-red-600 mt-2";
         }
       });
     });
+  </script>
   </script>
 </body>
 </html>
