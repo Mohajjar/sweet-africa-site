@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog Article</title>
 
+
+    <!-- 1) Bootstrap CSS -->
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWD..."
+    crossorigin="anonymous"
+  />
+
+  <!-- 2) Font Awesome & Ionic -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/ionicons@4.2.0/dist/css/ionicons.min.css"
+  />
+
+  <!-- 3) Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
+    rel="stylesheet"
+  />
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -16,9 +42,18 @@
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/media-queries.css" />
 </head>
 
 <body class="bg-white text-gray-800 font-sans leading-relaxed">
+
+  <!-- Navbar -->
+<div data-include="../navbar.html"></div>
+
   <main class="max-w-3xl mx-auto px-4 py-10">
     <div id="blogContent" class="space-y-6 text-lg leading-relaxed"></div>
 
@@ -193,5 +228,14 @@
     renderBlog();
     loadComments(slug);
   </script>
+
+  <!-- Footer -->
+<div data-include="../footer.html"></div>
+
+<!-- Partials loader -->
+<script src="../js/includes.js" defer></script>
+
+<!-- Scroll behavior & other navbar JS -->
+<script src="../js/main.js" type="module" defer></script>
 </body>
 </html>
