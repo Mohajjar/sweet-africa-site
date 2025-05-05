@@ -10,18 +10,15 @@ html, body {
 
 /* Contact Section Enhancements */
 #contact {
-    /* fill the remaining viewport height */
-    min-height: calc(100vh - 70px);
-    /* center its contents */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    /* background image + fallback color */
-    background:
-      url("../images/contact-img.jpg") center center/cover no-repeat,
-      #f0f4f8;
-  }
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    url("/images/seamless-pattern-cleaning-equipment-cleaning-line-icons-line-handdrawn-equipment-cleaning-products-tools-cleaning-windows-various-surfaces_647193-5856.avif") center center/cover no-repeat;
+}
   
   /* Centered card */
   #contact .contact-card {
