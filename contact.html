@@ -156,11 +156,10 @@
   ${message}`;
   
         try {
-          const res = await fetch("https://discord.com/api/webhooks/1364689976855498792/8ocfcilhVERs43siV3RzLUpuFlWrJ4G9WEotJt8itDCDihjaE2x0SVvw_Dp0f3_x889F", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ content })
-          });
+          const res = await fetch("/.netlify/functions/send-discord", {
+  method: "POST",
+  body: JSON.stringify({ name, email, message }),
+});
   
           if (res.ok) {
             feedback.textContent = "✅ Message sent successfully!";
