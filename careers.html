@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Careers — Sweet Africa Global LLC</title>
+
+  <!-- Tailwind (for dev styling consistency) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Stylesheets -->
+   <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/careers.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/media-queries.css" />
+
+  <!-- Bootstrap + Fonts -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://unpkg.com/ionicons@4.2.0/dist/css/ionicons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div data-include="navbar.html"></div>
+
+  <header class="career-header">
+    <h1>Careers at Sweet Africa Global</h1>
+    <p>Join our mission to deliver spotless peace of mind across California.</p>
+  </header>
+
+  <br>
+
+  <section class="intro-section">
+  <h2 class="section-title">💼 Join Our Team</h2>
+  <p class="section-text">
+    We’re growing and looking for passionate individuals to join our cleaning family.
+    If you're reliable, professional, and take pride in your work — we want to hear from you!
+  </p>
+</section>
+
+<section class="why-section">
+  <h2 class="section-title">🌟 Why Work With Us?</h2>
+  <ul class="benefits-list">
+    <li>💰 Competitive Pay</li>
+    <li>🕒 Flexible Schedules</li>
+    <li>👥 Friendly & Supportive Team</li>
+    <li>📈 Growth Opportunities</li>
+    <li>🛡️ Fully Insured & Trusted Company</li>
+  </ul>
+</section>
+
+<section class="roles-section">
+  <h2 class="section-title">📋 Open Roles</h2>
+  <div class="role-box">
+    <p><strong>Position:</strong> Residential & Commercial Cleaners</p>
+    <p><strong>Location:</strong> Los Angeles, Orange County, Inland Empire, San Bernardino</p>
+    <p><strong>Type:</strong> Part-time / Full-time</p>
+    <p><strong>Preferred:</strong> Female (but men can apply too)</p>
+  </div>
+</section>
+
+  <main class="career-wrapper">
+    <form id="job-application-form" class="job-form">
+      <h2 class="form-title">🧹 Job Application Form</h2>
+
+      <div class="form-group">
+        <label>Full Name*</label>
+        <div class="name-fields">
+          <input type="text" name="firstName" placeholder="First name" required>
+          <input type="text" name="lastName" placeholder="Last name" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Age*</label>
+        <input type="number" name="age" required>
+      </div>
+
+      <div class="form-group">
+        <label>Nationality*</label>
+        <input type="text" name="nationality" required>
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <select name="gender">
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+  <label>Preferred Shift*</label>
+  <div class="checkbox-stack">
+    <div class="checkbox-item">
+      <input type="checkbox" name="shift" value="Morning" id="shift-morning" />
+      <label for="shift-morning">Morning</label>
+    </div>
+    <div class="checkbox-item">
+      <input type="checkbox" name="shift" value="Afternoon" id="shift-afternoon" />
+      <label for="shift-afternoon">Afternoon</label>
+    </div>
+    <div class="checkbox-item">
+      <input type="checkbox" name="shift" value="Evening" id="shift-evening" />
+      <label for="shift-evening">Evening</label>
+    </div>
+  </div>
+</div>
+
+      <div class="form-group">
+        <label>Days Available Per Week*</label>
+        <select name="daysAvailable" required>
+          <option>1 day a week</option>
+          <option>2 days a week</option>
+          <option>3 days a week</option>
+          <option>4 days a week</option>
+          <option>5 days a week</option>
+          <option>6 days a week</option>
+          <option>7 days a week</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+  <label>Phone Number*</label>
+  <input type="tel" id="phone" name="phone" placeholder="(123) 456-789" required>
+</div>
+
+      <div class="form-group">
+        <label>Email Address (optional)</label>
+        <input type="email" name="email">
+      </div>
+
+      <div class="form-group">
+        <label>Upload Resume (optional)</label>
+        <input type="file" name="resume" disabled title="Resume upload coming soon">
+      </div>
+
+      <div class="form-group">
+        <label>Do you consent to a background check if selected?*</label>
+        <select name="consent" required>
+          <option value="">Select...</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Application</button>
+      <p id="form-response" class="form-feedback"></p>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <div data-include="footer.html"></div>
+
+  <!-- Scripts -->
+  <script src="js/includes.js" defer></script>
+  <script type="module" src="js/main.js" defer></script>
+  <script src="js/job-form.js" defer></script>
+</body>
+</html>

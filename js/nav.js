@@ -3,9 +3,6 @@ export function initNav() {
   const nav = document.getElementById("mainNav");
   if (!nav) return;
 
-  // nav.style.transition = ...;
-  // nav.style.transform = ...;
-
   let lastY = window.scrollY;
   window.addEventListener("scroll", () => {
     const currentY = window.scrollY;

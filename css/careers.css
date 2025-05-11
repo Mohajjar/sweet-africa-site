@@ -1,0 +1,221 @@
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #000001;
+  margin: 0;
+  padding: 0;
+}
+
+.career-header {
+  background-color: #f9fafb;
+  padding: 60px 20px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.career-header h1 {
+  font-size: 2.75rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.career-header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.career-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.job-form {
+  background: #ffffff;
+  padding: 2rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.form-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.job-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.job-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.job-form input,
+.job-form select {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+}
+
+.name-fields {
+  display: flex;
+  gap: 1rem;
+}
+
+.name-fields input {
+  flex: 1;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-left: 0.25rem;
+}
+
+.submit-btn {
+  background-color: #57c8da;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #45b6ca;
+}
+
+.form-feedback {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Ensure content appears below fixed navbar */
+body {
+  padding-top: 80px; /* Adjust based on your navbar height */
+}
+
+body {
+  padding-top: 100px;
+}
+
+.intro-section,
+.why-section,
+.roles-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.section-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  text-align: center;
+  color: #333;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+.benefits-list li {
+  background: #f3f4f6;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.benefits-list li:hover {
+  background: #e2e8f0;
+}
+
+.role-box {
+  background-color: #f9fafb;
+  border-left: 4px solid #57c8da;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.checkbox-item input[type="checkbox"] {
+  transform: scale(1.2);
+  accent-color: #57c8da;
+}
+
+.checkbox-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 0.5rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #57c8da;
+}
+
+input[type="tel"] {
+  letter-spacing: 1px;
+}
