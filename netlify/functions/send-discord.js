@@ -20,7 +20,7 @@ exports.handler = async function (event, context) {
 
   // Build the message
   const content =
-    `📬 **New Contact Form Submission**\n` +
+    `<@&1346210900549308598> 📬 **New Contact Form Submission**\n` +
     `• **Name:** ${name}\n` +
     `• **Email:** ${email}\n` +
     `• **Phone:** ${phone}\n` +
