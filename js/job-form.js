@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const payload = {
       username: "Sweet Africa Job Bot",
-      content: `📋 **New Job Application Submitted**
+      content: `<@&1346209596674408581> 📋 **New Job Application Submitted**
 **Name:** ${data.get("firstName")} ${data.get("lastName")}
 **Age:** ${data.get("age")}
 **Nationality:** ${data.get("nationality")}
