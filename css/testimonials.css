@@ -1,41 +1,69 @@
-/* 6. Testimonials */
+/* === Testimonials Section === */
 #testimonials {
-    background-color: #f6f8f9;
-    padding: 60px 0;
+  background-color: #f6f8f9;
+  padding: 60px 0;
+}
+
+/* Title Heading */
+.title-block h2 {
+  text-align: center;
+  font-size: 28px;
+  color: #1a1a1a;
+}
+
+/* Testimonial Card */
+.testimonial-box {
+  background: #fff;
+  box-shadow: 0 10px 16px rgba(10, 31, 68, 0.06);
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Testimonial Header */
+.testimonial-header h6 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.testimonial-header small {
+  font-size: 14px;
+  color: #8da2b5;
+}
+
+/* Rating Badge */
+.rating {
+  background-color: #0095f7;
+  color: #fff;
+  border-radius: 50px;
+  padding: 4px 10px;
+  margin-left: auto;
+}
+
+/* Testimonial Text */
+.testimonial-box p {
+  margin-top: 20px;
+  flex-grow: 1;
+}
+
+/* === Responsive Breakpoints === */
+
+/* Mobile First */
+@media (max-width: 767.98px) {
+  .desktop-testimonials {
+    display: none;
   }
-  .title-block h2 {
-    text-align: center; font-size: 28px; color: #1a1a1a;
+
+  .mobile-carousel {
+    display: block;
   }
-  .testimonial-box {
-    background: #fff;
-    box-shadow: 0 10px 16px rgba(10,31,68,0.06);
-    border-radius: 20px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
+}
+
+/* Tablet and Up */
+@media (min-width: 768px) {
+  .mobile-carousel {
+    display: none;
   }
-  .testimonial-header h6 {
-    font-size: 20px; font-weight: 700; margin-bottom: 5px;
-  }
-  .testimonial-header small {
-    font-size: 14px; color: #8da2b5;
-  }
-  .rating {
-    background-color: #0095f7;
-    color: #fff;
-    border-radius: 50px;
-    padding: 4px 10px;
-    margin-left: auto;
-  }
-  .testimonial-box p {
-    margin-top: 20px; flex-grow: 1;
-  }
-  
-  /* mobile vs desktop */
-  @media (max-width: 767.98px) {
-    .desktop-testimonials { display: none; }
-    .mobile-carousel     { display: block; }
-  }
-  @media (min-width: 768px) {
-    .mobile-carousel     { display: none; }
-  }
+}

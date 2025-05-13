@@ -1,19 +1,3 @@
-/* booking.css */
-/* push down for navbar */
-.booking-page { padding-top: 80px; }
-
-/* style all links in nav except the brand/logo */
-.booking-page nav a:not(.navbar-brand) {
-  display: block !important;              
-  background-color: #00abb1 !important;   
-  color: #fff !important;                 
-  padding: 0.75rem 1rem !important;        
-  border-radius: 0.5rem !important;        
-  margin: 0.5rem 0 !important;             
-  text-align: center !important;           
-  text-decoration: none !important;        
-}
-
-.booking-page nav a:not(.navbar-brand):hover {
-  background-color: #00979a !important;
+.booking-page {
+  padding-top:80px;
 }

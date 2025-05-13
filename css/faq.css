@@ -1,55 +1,52 @@
-/* FAQ accordion */
+/* === FAQ Toggle Animation === */
 .faq-question + .faq-answer {
-    /* smooth open/close (if you want) */
-    transition: max-height 0.3s ease;
-  }
-  
-  /* Rotate the chevron when open */
-  .faq-question.open .faq-icon {
-    transform: rotate(180deg);
-  }
+  transition: max-height 0.3s ease;
+}
 
-  #faq {
-    margin-top: 70px;       /* or padding-top, whichever you prefer */
-    scroll-margin-top: 70px; /* ensures hash‐link jumps stop below navbar */
-  }
+/* FAQ Section Offset for Smooth Scrolling */
+#faq {
+  margin-top: 70px;
+  scroll-margin-top: 70px;
+}
 
-  /* CTA “Get in Touch” */
+/* === Call to Action (CTA) Contact Section === */
 #cta-contact {
-    background-color: #f6f8f9;  /* very light gray/blue background */
-  }
-  
-  #cta-contact h2 {
-    color: #1f2937;  /* dark gray for headlines */
-  }
-  
-  #cta-contact p {
-    color: #4b5563;  /* medium gray for body text */
-    line-height: 1.6;
-  }
-  
-  #cta-contact .btn-cta {
-    background-color: #0095f7;  /* Sweet Africa primary blue */
-    color: #ffffff;
-    transition: background-color 0.2s, transform 0.2s;
-    text-decoration: none;
-  }
-  
-  #cta-contact .btn-cta:hover,
-  #cta-contact .btn-cta:focus {
-    background-color: #007ac1;  /* slightly darker on hover */
-    transform: translateY(-2px);
-  }
-  
-  /* Utility to center on small screens if needed */
-  @media (max-width: 640px) {
-    #cta-contact {
-      padding: 3rem 1rem;
-    }
-    #cta-contact p {
-      font-size: 0.95rem;
-    }
-  }
-  
+  background-color: #f6f8f9;
+}
 
-  
+/* CTA Title */
+#cta-contact h2 {
+  color: #1f2937;
+}
+
+/* CTA Paragraph */
+#cta-contact p {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* CTA Button */
+#cta-contact .btn-cta {
+  background-color: #0095f7;
+  color: #fff;
+  transition: background-color 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+
+/* CTA Button Hover and Focus States */
+#cta-contact .btn-cta:focus,
+#cta-contact .btn-cta:hover {
+  background-color: #007ac1;
+  transform: translateY(-2px);
+}
+
+/* === Responsive Styles (Mobile) === */
+@media (max-width: 640px) {
+  #cta-contact {
+    padding: 3rem 1rem;
+  }
+
+  #cta-contact p {
+    font-size: 0.95rem;
+  }
+}

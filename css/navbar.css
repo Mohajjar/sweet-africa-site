@@ -1,36 +1,10 @@
-/* 2. Navbar */
-.custom-navbar {
-    background-color: #ffffff !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.09);
-    height: 70px;
-  }
-  .custom-navbar .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-  }
-  .nav-logo {
-    max-height: 60px; width: auto;
-  }
-  
-  .navbar-toggler {
-    font-size: 24px; background: transparent; border: none;
-  }
-  .navbar-toggler:focus { outline: none; }
-  .navbar-nav .nav-link {
-    font-size: 12px; letter-spacing: .05em; color: #53627C !important;
-  }
-  .btn-demo-small {
-    font-size: 12px; background: #6772e5; padding: 4px 8px;
-  }
-  /* when we add .-translate-y-full it moves the nav up, off‑screen */
-  #mainNav.-translate-y-full {
-    transform: translateY(-100%);
-  }
+/* === Logo Image Size === */
+.nav-logo {
+  max-height: 60px;
+  width: auto;
+}
 
-
-  /* Mobile slide‑in menu button styles */
+/* === Navigation Menu Styling === */
 .navbar-menu nav ul.space-y-4 {
   padding: 0;
   margin: 0;
@@ -46,25 +20,25 @@
 
 .navbar-menu nav ul.space-y-4 li a {
   display: block;
-  background-color: #0095f7;       /* brand blue */
-  color: #ffffff;                  /* white text */
-  padding: 0.75rem 1rem;           /* touch‑friendly padding */
-  border-radius: 0.5rem;           /* rounded corners */
-  font-size: 1rem;                 /* legible text */
-  font-weight: 500;                /* medium weight */
+  background-color: #0095f7;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
   text-align: center;
   transition: background-color 0.2s ease;
 }
 
-.navbar-menu nav ul.space-y-4 li a:hover,
-.navbar-menu nav ul.space-y-4 li a:focus {
-  background-color: #007ac1;       /* darker blue on hover */
+.navbar-menu nav ul.space-y-4 li a:focus,
+.navbar-menu nav ul.space-y-4 li a:hover {
+  background-color: #007ac1;
   text-decoration: none;
 }
 
-/* Optional: make the close button stand out */
+/* === Navbar Close Button === */
 .navbar-menu .navbar-close {
-  background: transparent;
+  background: none;
   border: none;
   padding: 0.5rem;
   position: absolute;
@@ -75,57 +49,52 @@
 .navbar-menu .navbar-close svg {
   width: 1.5rem;
   height: 1.5rem;
-  color: #3a3f52;                  /* dark gray */
+  color: #3a3f52;
   transition: color 0.2s ease;
 }
 
-.navbar-menu .navbar-close:hover svg,
-.navbar-menu .navbar-close:focus svg {
+.navbar-menu .navbar-close:focus svg,
+.navbar-menu .navbar-close:hover svg {
   color: #0095f7;
 }
 
-/* in your navbar.css (or a mobile‑menu override file) */
+/* === Navbar Fullscreen Overlay === */
 .navbar-menu {
-  /* remove inset-0 or override its top/bottom */
-  /* inset: 0; */
   position: fixed;
-  top: 70px;      /* push it below the navbar */
+  top: 70px;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 50;
 }
 
-/* optional: make the backdrop fill only from beneath the navbar */
+/* Backdrop overlay */
 .navbar-menu .navbar-backdrop {
   position: absolute;
-  top: 0;         /* 0 relative to .navbar-menu, which is already 70px down */
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 }
 
-/* force the mobile panel closed by default */
+/* Show/Hide Toggle */
 .navbar-menu {
   display: none !important;
 }
 
-/* when JS removes the “hidden” class, turn it back on */
 .navbar-menu:not(.hidden) {
   display: block !important;
 }
 
+/* === Navigation Height Control === */
 :root {
   --nav-height: 70px;
 }
 
-/* push all pages down so nothing hides under #mainNav */
 body {
   padding-top: var(--nav-height);
 }
 
-/* make in-page anchor jumps land below the nav */
 html {
   scroll-padding-top: var(--nav-height);
 }
-  
