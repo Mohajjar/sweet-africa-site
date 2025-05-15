@@ -25,14 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      const res = await fetch(
-        "https://discord.com/api/webhooks/1371089381040853012/QrYy22unQfHDGUo6ISSjrZRDHCDHVty8lguRAOKmT--7HzuHKPbndh-mdmfUgg_39Ldq",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
+      const res = await fetch("/.netlify/functions/job-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
       if (res.ok) {
         responseMsg.textContent = "✅ Application submitted successfully!";
