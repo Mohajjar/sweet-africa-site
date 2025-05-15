@@ -2,9 +2,8 @@ const fetch = require("node-fetch");
 
 exports.handler = async function (event) {
   try {
-    const data = JSON.parse(event.body);
+    const formData = JSON.parse(event.body);
 
-    // ✅ Check if the webhook URL is available
     const webhook = process.env.JOB_FORM;
     if (!webhook) {
       console.error("❌ Missing webhook environment variable.");
@@ -14,13 +13,29 @@ exports.handler = async function (event) {
       };
     }
 
-    // ✅ Log payload to verify structure
-    console.log("📦 Payload to Discord:", data);
+    // 🧠 Build readable message
+    const content = `
+📋 **New Job Application Submitted**
+• **Name:** ${formData.firstName} ${formData.lastName}
+• **Age:** ${formData.age}
+• **Nationality:** ${formData.nationality}
+• **Gender:** ${formData.gender}
+• **Preferred Shift(s):** ${formData.shift}
+• **Available Days:** ${formData.daysAvailable}
+• **Phone:** ${formData.phone}
+• **Email:** ${formData.email || "Not provided"}
+• **Background Check Consent:** ${formData.consent}
+    `.trim();
+
+    const payload = {
+      username: "Sweet Africa Job Bot",
+      content,
+    };
 
     const res = await fetch(webhook, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
