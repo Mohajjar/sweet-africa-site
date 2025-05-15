@@ -1,46 +1,46 @@
 const fetch = require("node-fetch");
 
 exports.handler = async function (event) {
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: "Method Not Allowed",
-    };
-  }
-
   try {
-    const { content } = JSON.parse(event.body);
-    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+    const data = JSON.parse(event.body);
 
-    if (!webhookUrl) {
+    // ✅ Check if the webhook URL is available
+    const webhook = process.env.JOB_FORM;
+    if (!webhook) {
+      console.error("❌ Missing webhook environment variable.");
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: "Missing webhook URL" }),
+        body: "Missing webhook URL",
       };
     }
 
-    const response = await fetch(webhookUrl, {
+    // ✅ Log payload to verify structure
+    console.log("📦 Payload to Discord:", data);
+
+    const res = await fetch(webhook, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: "Sweet Africa Job Bot",
-        content,
-      }),
+      body: JSON.stringify(data),
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to send message to Discord");
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("❌ Discord error response:", text);
+      return {
+        statusCode: res.status,
+        body: "Failed to send message to Discord",
+      };
     }
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Message sent to Discord" }),
+      body: "Message sent to Discord",
     };
   } catch (error) {
     console.error("❌ Discord webhook error:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Failed to send" }),
+      body: "Internal Server Error",
     };
   }
 };
