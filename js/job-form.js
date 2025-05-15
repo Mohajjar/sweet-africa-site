@@ -11,17 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
       .join(", ");
 
     const payload = {
-      username: "Sweet Africa Job Bot",
-      content: `<@&1346209596674408581> 📋 **New Job Application Submitted**
-**Name:** ${data.get("firstName")} ${data.get("lastName")}
-**Age:** ${data.get("age")}
-**Nationality:** ${data.get("nationality")}
-**Gender:** ${data.get("gender")}
-**Preferred Shift(s):** ${shifts}
-**Available Days:** ${data.get("daysAvailable")}
-**Phone:** ${data.get("phone")}
-**Email:** ${data.get("email") || "Not provided"}
-**Background Check Consent:** ${data.get("consent")}`,
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      age: data.get("age"),
+      nationality: data.get("nationality"),
+      gender: data.get("gender"),
+      shift: shifts,
+      daysAvailable: data.get("daysAvailable"),
+      phone: data.get("phone"),
+      email: data.get("email") || "Not provided",
+      consent: data.get("consent"),
     };
 
     try {
@@ -44,27 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(err);
     }
   });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
+  // Format phone number as user types
   const phoneInput = document.getElementById("phone");
+  phoneInput.addEventListener("input", function () {
+    let input = this.value.replace(/\D/g, "");
+    input = input.substring(0, 10);
+    const area = input.substring(0, 3);
+    const middle = input.substring(3, 6);
+    const last = input.substring(6, 10);
 
-  phoneInput.addEventListener("input", function (e) {
-    let input = this.value.replace(/\D/g, ""); // Remove non-digits
-
-    if (input.length > 0) {
-      input = input.substring(0, 10); // Max 10 digits
-      const area = input.substring(0, 3);
-      const middle = input.substring(3, 6);
-      const last = input.substring(6, 10);
-
-      if (input.length >= 7) {
-        this.value = `(${area}) ${middle}-${last}`;
-      } else if (input.length >= 4) {
-        this.value = `(${area}) ${middle}`;
-      } else if (input.length >= 1) {
-        this.value = `(${area}`;
-      }
+    if (input.length >= 7) {
+      this.value = `(${area}) ${middle}-${last}`;
+    } else if (input.length >= 4) {
+      this.value = `(${area}) ${middle}`;
+    } else if (input.length >= 1) {
+      this.value = `(${area}`;
     }
   });
 });

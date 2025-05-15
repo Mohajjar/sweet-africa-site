@@ -8,34 +8,39 @@ exports.handler = async function (event) {
     };
   }
 
-  const data = JSON.parse(event.body);
-  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-
-  const payload = {
-    username: "Sweet Africa Job Bot",
-    content: data.content, // Pass content from frontend securely
-  };
-
   try {
-    const res = await fetch(webhookUrl, {
+    const { content } = JSON.parse(event.body);
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+
+    if (!webhookUrl) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Missing webhook URL" }),
+      };
+    }
+
+    const response = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        username: "Sweet Africa Job Bot",
+        content,
+      }),
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to send to Discord");
+    if (!response.ok) {
+      throw new Error("Failed to send message to Discord");
     }
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Sent!" }),
+      body: JSON.stringify({ message: "Message sent to Discord" }),
     };
-  } catch (err) {
-    console.error("Discord Webhook Error:", err);
+  } catch (error) {
+    console.error("❌ Discord webhook error:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Internal error" }),
+      body: JSON.stringify({ error: "Failed to send" }),
     };
   }
 };
