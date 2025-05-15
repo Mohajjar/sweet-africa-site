@@ -193,17 +193,21 @@ body.show-chatbot .chatbot-popup {
 
 .chat-body .bot-message .thinking-indicator {
   display: flex;
-  gap: 4px;
-  padding-block: 15px;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  height: 20px;
+  width: auto;
 }
 
 .chat-body .bot-message .thinking-indicator .dot {
-  height: 7px;
-  width: 7px;
-  opacity: 0.7;
-  border-radius: 50%;
+  width: 6px;
+  height: 6px;
   background: #00abb1;
-  animation: dotPulse 1.8s ease-in-out infinite;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: dotPulse 1.5s ease-in-out infinite;
 }
 
 .chat-body .bot-message .thinking-indicator .dot:nth-child(1) {
@@ -545,3 +549,38 @@ body.show-chatbot .chatbot-popup {
   transform: scale(1) !important;
 }
 
+/* Force thinking message to behave like normal bot message */
+.chat-body .bot-message.thinking {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 8px 0;
+}
+
+.chat-body .bot-message.thinking .message-text {
+  padding: 4px 8px;
+  margin: 0;
+  max-width: max-content;
+  background: #ececec;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-body .bot-message.thinking .thinking-indicator {
+  display: flex;
+  gap: 5px;
+  padding: 0;
+  margin: 0;
+  height: 16px;
+}
+
+.chat-body .bot-message.thinking .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #00abb1;
+  animation: dotPulse 1.5s ease-in-out infinite;
+  opacity: 0.7;
+}
