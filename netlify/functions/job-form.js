@@ -2,9 +2,22 @@ const fetch = require("node-fetch");
 
 exports.handler = async function (event) {
   try {
-    const formData = JSON.parse(event.body);
+    const {
+      firstName,
+      lastName,
+      age,
+      nationality,
+      gender,
+      zip,
+      shift,
+      daysAvailable,
+      phone,
+      email,
+      consent,
+    } = JSON.parse(event.body);
 
     const webhook = process.env.JOB_FORM;
+
     if (!webhook) {
       console.error("❌ Missing webhook environment variable.");
       return {
@@ -12,8 +25,6 @@ exports.handler = async function (event) {
         body: "Missing webhook URL",
       };
     }
-
-    // 🧠 Build readable message
 
     const content = `<@&1346209596674408581> 📋 **New Job Application Submitted**
 **Name:** ${firstName} ${lastName}
@@ -24,7 +35,7 @@ exports.handler = async function (event) {
 **Preferred Shift(s):** ${shift}
 **Available Days:** ${daysAvailable}
 **Phone:** ${phone}
-**Email:** ${email}
+**Email:** ${email || "Not provided"}
 **Background Check Consent:** ${consent}`;
 
     const payload = {
