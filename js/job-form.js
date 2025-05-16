@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       daysAvailable: data.get("daysAvailable"),
       phone: data.get("phone"),
       email: data.get("email") || "Not provided",
+      zip: data.get("zip"),
       consent: data.get("consent"),
     };
 
