@@ -14,18 +14,18 @@ exports.handler = async function (event) {
     }
 
     // 🧠 Build readable message
-    const content = `
-📋 **New Job Application Submitted**
-• **Name:** ${formData.firstName} ${formData.lastName}
-• **Age:** ${formData.age}
-• **Nationality:** ${formData.nationality}
-• **Gender:** ${formData.gender}
-• **Preferred Shift(s):** ${formData.shift}
-• **Available Days:** ${formData.daysAvailable}
-• **Phone:** ${formData.phone}
-• **Email:** ${formData.email || "Not provided"}
-• **Background Check Consent:** ${formData.consent}
-    `.trim();
+
+    const content = `<@&1346209596674408581> 📋 **New Job Application Submitted**
+**Name:** ${firstName} ${lastName}
+**Age:** ${age}
+**Nationality:** ${nationality}
+**Gender:** ${gender}
+**ZIP Code:** ${zip}
+**Preferred Shift(s):** ${shift}
+**Available Days:** ${daysAvailable}
+**Phone:** ${phone}
+**Email:** ${email}
+**Background Check Consent:** ${consent}`;
 
     const payload = {
       username: "Sweet Africa Job Bot",
